@@ -65,3 +65,5 @@ Or hit up my website at [personal website](https://justin-lloyd.com/).
 
 This repository is not affiliated, associated, authorized, endorsed by, or in any way officially connected with OpenAI or
 Dungeon & Dragons or Wizards of the Coast.
+
+![Screenshot of Banderschnappen](./screenshot-02.png)
