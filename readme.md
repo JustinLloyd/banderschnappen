@@ -42,8 +42,8 @@ Play as best you can, in the spirit of the game and the spirit of the table. Hav
 - Access a wealth of location descriptors and names fitting the environment.
 - Expandable: add your environments, zones, and locations.
 - Tracks the entire game state, including player stats, your inventory, NPCs, quests, puzzles, and more.
-- Maintains a full history of everything you ever did in the game, and a summary of it all, and can refer back to earlier
-- events to weave them into the current narrative.
+- Maintains a full history of everything you ever did in the game, and a summary of it all, and can refer back to earlier 
+events to weave them into the current narrative.
 - Supports 1 to 4 players.
 - Refuses to use anything other than the Imperial measurement system.
 - Supports solo play.
