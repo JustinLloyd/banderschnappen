@@ -5,7 +5,7 @@ Banderschnappen is an interactive Dungeons & Dragons 5e RPG scenario generator p
 Note that this code does not currently compile. It is still in development. You're just getting to look inside the sausage
 factory.
 
-![Screenshot of Banderschnappen](./screenshot.png)
+![Screenshot of Banderschnappen](./screenshot-01.png)
 
 ## Overview
 
