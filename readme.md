@@ -25,6 +25,9 @@ players to role play as a group in the world of D&D and is also ideally suited t
 - Access a wealth of location descriptors and names fitting the environment.
 - Expandable: add your environments, zones, and locations.
 
+
+![Screenshot of Banderschnappen](./screenshot-03.png)
+
 ## Setup
 
 1. Clone this repository:
