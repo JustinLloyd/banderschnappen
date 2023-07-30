@@ -2,8 +2,12 @@
 
 Banderschnappen is an interactive Dungeons & Dragons 5e RPG scenario generator powered by Python and OpenAI's ChatGPT API.
 
-Note that this code does not currently compile. It is still in development. You're just getting to look inside the sausage
-factory.
+Note that this code does not currently compile. It is still in development. You're not looking at how the sausage is being
+made. You're getting see how the sausage factory is being constructed that will make the sausages.
+
+This repo is a work in progress. It is not yet ready for use. It is not yet ready for testing. I am converting a loose set
+of Jupyter Notebooks into a cohesive Python application. I am also adding a lot of new features and functionality. They
+will be read when they're ready.
 
 ![Screenshot of Banderschnappen](./screenshot-01.png)
 
