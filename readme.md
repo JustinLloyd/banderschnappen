@@ -32,6 +32,8 @@ might not invite you back to play again.
 
 Play as best you can, in the spirit of the game and the spirit of the table. Have fun. Enjoy yourself.
 
+![Screenshot of Banderschnappen](./screenshot-04.jpg)
+
 ## Features
 
 - Generate a wide variety of D&D scenarios with diverse environments, zones, and locations.
