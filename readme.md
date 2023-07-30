@@ -14,14 +14,16 @@ such as wilderness, abandoned outposts, villages, dungeons, and more. Each envir
 containing an array of unique locations. 
 
 By leveraging the AI capabilities of OpenAI's ChatGPT, Banderschnappen ensures that each scenario is unpredictable and full 
-of potential for fun and exciting RPG experiences. 
+of potential for fun and exciting RPG experiences. The Banderschnappen software acts as the DM for a group of 1 to 4 human
+players to role play as a group in the world of D&D and is also ideally suited to solo play.
 
 ## Features
 
 - Generate a wide variety of D&D scenarios with diverse environments, zones, and locations.
+- Handle combat encounters, puzzles, and quest completion.
 - Utilize the power of AI to create unpredictable and unique adventures.
 - Access a wealth of location descriptors and names fitting the environment.
-- Fully customizable: add your environments, zones, and locations.
+- Expandable: add your environments, zones, and locations.
 
 ## Setup
 
