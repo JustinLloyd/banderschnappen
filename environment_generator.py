@@ -1,475 +1,1011 @@
 import random
 
 from empty_structures import EmptyStructures
+from constants import *
 
 
 class EnvironmentGenerator:
+    NOUN_BANDIT = "bandit"
+    NOUN_HERMIT = "hermit"
+    NOUN_HUNTER = "hunter"
+    NOUN_BEAR = "bear"
+    NOUN_WOLF = "wolf"
+    NOUN_BERRY = "berry"
+    NOUN_WOOD = "wood"
+    NOUN_STONE = "stone"
+    NOUN_NATURAL = "natural"
+    ADJ_ROCKY = "rocky"
+    ADJ_MUDDY = "muddy"
+    ADJ_SANDY = "sandy"
+    ADJ_DRY = "dry"
+    ADJ_FLOODED = "flooded"
+    ADJ_DAMP = "damp"
+    ADJ_OVERGROWN = "overgrown"
+    ADJ_SUN_BAKED = "sun-baked"
+    ADJ_LUSH = "lush"
+    ADJ_BARREN = "barren"
+    ADJ_WINDING = "winding"
+    ADJ_DEEP = "deep"
+    ADJ_SHALLOW = "shallow"
+    ADJ_RUGGED = "rugged"
+    ADJ_SLIPPERY = "slippery"
+    ADJ_SMOOTH = "smooth"
+    ADJ_PEBBLY = "pebbly"
+    ADJ_SHADOWY = "shadowy"
+    ADJ_MEANDERING = "meandering"
+    ADJ_SERENE = "serene"
+    ADJ_LIGHTING_STRUCK = "lightning-struck"
+    ADJ_MUSHROOM_COVERED = "mushroom-covered"
+    ADJ_LICHEN_COVERED = "lichen-covered"
+    ADJ_SMELLY = "smelly"
+    ADJ_FRESHLY = "freshly"
+    ADJ_ROTTING = "rotting"
+    ADJ_ODOUROUS = "odourous"
+    ADJ_ABANDONED = "abandoned"
+    ADJ_BLOSSOMING = "blossoming"
+    ADJ_BURNT_OUT = "burnt-out"
+    ADJ_COLLAPSED = "collapsed"
+    ADJ_FORTIFIED = 'fortified'
+    ADJ_FROSTED = 'frosted'
+    ADJ_HASTILY = 'hastily'
+    ADJ_HOSTILE = 'hostile'
+    ADJ_IDYLLIC = 'idyllic'
+    ADJ_OCCUPIED = "occupied"
+    ADJ_RUINED = "ruined"
+    ADJ_TWISTED = 'twisted'
+    ADJ_WOODED = "wooded"
+    ADJ_BOUNTIFUL = "bountiful"
+    ADJ_WHISPERING = "whispering"
+    ADJ_WIDENING = "widening"
+    ADJ_HIDDEN = "hidden"
+    ADJ_DESTROYED = "destroyed"
+    ADJ_CRUMBLING = "crumbling"
+    ADJ_ARCHED = "arched"
+    ADJ_EMPTIED = "emptied"
+    ADJ_SCOURED = "scoured"
+    ADJ_RUSTIC = "rustic"
+    ADJ_UNDUlATING= "undulating"
+    ADJ_CREEPING = "creeping"
+    ADJ_PARTIALLY_STOCKED = "partially-stocked"
+    ADJ_ANCIENT = "ancient"
+    ADJ_HOLLOW = "hollow"
+    ADJ_LONE = "lone"
+    ADJ_STANDING = "standing"
+    ADJ_INVITING= "inviting"
+    ADJ_FALLEN = "fallen"
+    ADJ_OLD = "old"
+    ADJ_RAPID = "rapid"
+    ADJ_FERTILE = "fertile"
+    ADJ_MOSSY = "mossy"
+    ADJ_CANOPIED = "canopied"
+    ADJ_DAPPLED = "dappled"
+    ADJ_DECIDUOUS = "deciduous"
+    ADJ_DENSE = "dense"
+    ADJ_EVERGREEN = "evergreen"
+    ADJ_FLOWER_COVERED= "flower-covered"
+    ADJ_DESERTED= "deserted"
+    ADJ_FERN_FILLED = "fern-filled"
+    ADJ_BRAMBLY = "brambly"
+    ADJ_BUSHY = "bushy"
+    ADJ_FLOURISHING = "flourishing"
+    ADJ_ERODED= "eroded"
+    ADJ_FRAGRANT = "fragrant"
+    ADJ_PRECARIOUS= "precarious"
+    ADJ_FUNGAL = "fungal"
+    ADJ_GNARLED = "gnarled"
+    ADJ_HUMID = "humid"
+    ADJ_SHARP= "sharp"
+    ADJ_HUMMING = "humming"
+    ADJ_HUSHED = "hushed"
+    ADJ_CRYSTALLINE=    "crystalline"
+    ADJ_GEOLOGICAL= "geological"
+    ADJ_FOSSILIZED= "fossilized"
+    ADJ_PROMINENT=  "prominent"
+    ADJ_JAGGED = "jagged"
+    ADJ_EXPOSED=    "exposed"
+    ADJ_KNOTTED = "knotted"
+    ADJ_STONY=  "stony"
+    ADJ_SCENIC= "scenic"
+    ADJ_STRIATED=   "striated"
+    ADJ_ROUGH=  "rough"
+    ADJ_NARROW= "narrow"
+    ADJ_LEAFY = "leafy"
+    ADJ_DUSTY=  "dusty"
+    ADJ_DRIPPING=   "dripping"
+    ADJ_SEDIMENTARY=    "sedimentary"
+    ADJ_FOSSIL= "fossil"
+    ADJ_FETID = "fetid"
+    ADJ_TOWERING=   "towering"
+    ADJ_VOLCANIC=   "volcanic"
+    ADJ_GRANITIC=   "granitic"
+    ADJ_PRECIPITOUS=    "precipitous"
+    ADJ_BARE=   "bare"
+    ADJ_PEACEFUL=   "peaceful"
+    ADJ_LOOMING = "looming"
+    ADJ_MAJECTIC = "majestic"
+    ADJ_MOSS_COVERED = "moss-covered"
+    ADJ_STAGNANT = "stagnant"
+    ADJ_MURMURING = "murmuring"
+    ADJ_MURKY = "murky"
+    ADJ_LEAF_STREWN= "leaf-strewn"
+    ADJ_FIR_LINED = "fir-lined"
+    ADJ_TWISTING= "twisting"
+    ADJ_NESTLED = "nestled"
+    ADJ_PRIMEVAL = "primeval"
+    ADJ_PRISTINE = "pristine"
+    ADJ_RESILIENT = "resilient"
+    ADJ_RESOUNDING = "resounding"
+    ADJ_PINE_CONE_LITTERED= "pine-cone-littered"
+    ADJ_FOUL=   "foul"
+    ADJ_PICTURESQUE= "picturesque"
+    ADJ_QUIET=  "quiet"
+    ADJ_SWEEPING=   "sweeping"
+    ADJ_STINKING= "stinking"
+    ADJ_TUMBLEDOWN= "tumbledown"
+    ADJ_FLOWING= "flowing"
+    ADJ_SHIMMERING = "shimmering"
+    ADJ_FOUL_SMELLING=  "foul-smelling"
+    ADJ_SHADY = "shady"
+    ADJ_RESTFUL= "restful"
+    ADJ_ROOT_RIDDLED= "root-riddled"
+    ADJ_RUSTLING= "rustling"
+    ADJ_SECLUDED= "secluded"
+    ADJ_SPRAWLING= "sprawling"
+    ADJ_STATELY= "stately"
+    ADJ_SYLVAN= "sylvan"
+    ADJ_TANGLED= "tangled"
+    ADJ_TEEMING= "teeming"
+    ADJ_THICKETED= "thicketed"
+    ADJ_TIME_WORN= "time-worn"
+    ADJ_TORMENTED= "tormented"
+    ADJ_TRANQUIL= "tranquil"
+    ADJ_UNDERGROWTH= "undergrowth"
+    ADJ_UNSPOILED= "unspoiled"
+    ADJ_UNTAMED= "untamed"
+    ADJ_VERDANT= "verdant"
+    ADJ_VIBRANT= "vibrant"
+    ADJ_WILD= "wild"
+    ADJ_WIND_WHISPERED= "wind-whispered"
+    ADJ_FRESH= "fresh"
+    ADJ_FOSSIl= "fossil"
+    ADJ_GLISTENING= "glistening"
+
     adjectives = [
-        "Blossoming",
-        "Bountiful",
-        "Brambly",
-        "Canopied",
-        "Dappled",
-        "Deciduous",
-        "Dense",
-        "Emerald-hued",
-        "Evergreen",
-        "Fern-filled",
-        "Fertile",
-        "Fir-lined",
-        "Flourishing",
-        "Fragrant",
-        "Frosted"
-        "Fungal",
-        "Gnarled",
-        "Humid",
-        "Hushed",
-        "Jagged",
-        "Knotted",
-        "Leafy",
-        "Looming",
-        "Lush",
-        "Majestic",
-        "Moss-covered",
-        "Mossy",
-        "Murmuring",
-        "Nestled",
-        "Overgrown",
-        "Primeval",
-        "Pristine",
-        "Resilient",
-        "Resounding",
-        "Restful",
-        "Root-riddled",
-        "Rustling",
-        "Secluded",
-        "Serene",
-        "Shady",
-        "Shimmering",
-        "Sprawling",
-        "Stately",
-        "Sun-dappled",
-        "Sylvan",
-        "Tangled",
-        "Teeming",
-        "Thicketed",
-        "Time-worn",
-        "Tormented",
-        "Tranquil",
-        "Twisted",
-        "Undergrowth",
-        "Unspoiled",
-        "Untamed",
-        "Verdant",
-        "Vibrant",
-        "Whispering",
-        "Wild",
-        "Wind-whispered",
-        "Winding",
-        "Wooded",
+        ADJ_BUSHY,
+        ADJ_DRY,
+        ADJ_MOSS_COVERED,
+
+        ADJ_THICKETED,
+        ADJ_UNDERGROWTH,
+        ADJ_WILD,
+        ADJ_WIND_WHISPERED,
+        ADJ_ERODED,
+        ADJ_EXPOSED,
+        ADJ_FOSSILIZED,
+        ADJ_GEOLOGICAL,
+        ADJ_GRANITIC,
+        ADJ_JAGGED,
+        ADJ_NARROW,
+        ADJ_PRECARIOUS,
+        ADJ_PRECIPITOUS,
+        ADJ_PROMINENT,
+        ADJ_ROUGH,
+        ADJ_SCENIC,
+        ADJ_SEDIMENTARY,
+        ADJ_STONY,
+        ADJ_STRIATED,
+        ADJ_TOWERING,
+        ADJ_VOLCANIC,
+        ADJ_CREEPING,
+        ADJ_ARCHED,
+        ADJ_PICTURESQUE,
+        ADJ_PEACEFUL,
+        ADJ_QUIET,
+        ADJ_TWISTING,
+        ADJ_UNDUlATING,
+        ADJ_RUSTIC,
+        ADJ_SWEEPING,
+        ADJ_FLOWING,
+        ADJ_MEANDERING,
+        ADJ_INVITING,
+        ADJ_CRUMBLING,
+        ADJ_DESTROYED,
+        ADJ_BARE,
+
+        ADJ_CRYSTALLINE,
+        ADJ_FLOWER_COVERED,
+        ADJ_DUSTY,
+        ADJ_HOLLOW,
+        ADJ_ANCIENT,
+        ADJ_LONE,
+        ADJ_STANDING,
+        ADJ_FALLEN,
+
+        ADJ_SANDY,
+        ADJ_ROCKY,
+        ADJ_WIDENING,
+        ADJ_BOUNTIFUL,
+        ADJ_ODOUROUS,
+        ADJ_EMPTIED,
+        ADJ_PARTIALLY_STOCKED,
+        ADJ_SCOURED,
+        ADJ_BARREN,
+        ADJ_BRAMBLY,
+        ADJ_CANOPIED,
+        ADJ_DAPPLED,
+        ADJ_DECIDUOUS,
+        ADJ_DENSE,
+        ADJ_EVERGREEN,
+        ADJ_FERN_FILLED,
+        ADJ_FERTILE,
+        ADJ_SLIPPERY,
+        ADJ_FIR_LINED,
+        ADJ_FLOURISHING,
+        ADJ_FRAGRANT,
+        ADJ_FUNGAL,
+        ADJ_GNARLED,
+        ADJ_HUMID,
+        ADJ_HUMMING,
+        ADJ_HUSHED,
+        ADJ_KNOTTED,
+        ADJ_LEAFY,
+        ADJ_LOOMING,
+        ADJ_LUSH,
+        ADJ_MAJECTIC,
+
+        ADJ_MOSSY,
+        ADJ_MURMURING,
+        ADJ_NESTLED,
+        ADJ_OVERGROWN,
+        ADJ_PRIMEVAL,
+        ADJ_PRISTINE,
+        ADJ_RESILIENT,
+        ADJ_RESOUNDING,
+        ADJ_RESTFUL,
+        ADJ_ROOT_RIDDLED,
+        ADJ_RUSTLING,
+        ADJ_SECLUDED,
+        ADJ_SERENE,
+        ADJ_SHADY,
+        ADJ_SHIMMERING,
+        ADJ_SPRAWLING,
+        ADJ_STATELY,
+        ADJ_FRESH,
+        ADJ_SYLVAN,
+        ADJ_TANGLED,
+        ADJ_TEEMING,
+
+        ADJ_TIME_WORN,
+        ADJ_TORMENTED,
+        ADJ_TRANQUIL,
+        ADJ_UNSPOILED,
+        ADJ_UNTAMED,
+        ADJ_VERDANT,
+        ADJ_VIBRANT,
+        ADJ_WHISPERING,
+
+        ADJ_GLISTENING,
+        ADJ_FOSSIl,
+        ADJ_WINDING,
+        ADJ_WOODED,
+        ADJ_RAPID,
+        ADJ_ABANDONED,
+        ADJ_BLOSSOMING,
+        ADJ_BURNT_OUT,
+        ADJ_COLLAPSED,
+        ADJ_FORTIFIED,
+        ADJ_FROSTED,
+        ADJ_HASTILY,
+        ADJ_HOSTILE,
+        ADJ_IDYLLIC,
+        ADJ_OCCUPIED,
+        ADJ_RUINED,
+        ADJ_TWISTED,
+        ADJ_OLD,
+        ADJ_HIDDEN,
     ]
+
+    LOC_MOUNTAIN_PASS = {"descriptor": "pass (mountain)", "adjectives":[ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_ALCOVE = {"descriptor": "alcove (hidden)", "adjectives": [ADJ_HIDDEN], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_HAZARD, ENCOUNTER_PUZZLE, ENCOUNTER_QUEST]}
+    LOC_ANIMAL_BURROW = {"descriptor": "animal burrow", "adjectives": [ADJ_ABANDONED, ADJ_COLLAPSED, ADJ_OCCUPIED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_PUZZLE]}
+    LOC_ANIMAL_PENS = {"descriptor": "animal pens", "adjectives": [ADJ_ABANDONED, ADJ_COLLAPSED, ADJ_OCCUPIED, ADJ_ODOUROUS, ADJ_HOSTILE, ADJ_BURNT_OUT], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_PUZZLE, ENCOUNTER_QUEST, ENCOUNTER_REST]}
+    LOC_APOTHECARY = {"descriptor": "apothecary", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_ARMORY = {"descriptor": "armory", "adjectives": [ADJ_EMPTIED, ADJ_SCOURED, ADJ_PARTIALLY_STOCKED, ], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_REST]}
+    LOC_AVALANCHE_SITE = {"descriptor": "avalanche site", "adjectives": [ADJ_FRESH], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_BAKERY = {"descriptor": "bakery", "adjectives":[ADJ_ABANDONED,ADJ_BURNT_OUT], "encounters": [ENCOUNTER_SOCIAL, ENCOUNTER_QUEST]}
+    LOC_BARN = {"descriptor": "barn", "adjectives": [ADJ_BURNT_OUT, ADJ_RUINED, ADJ_ABANDONED, ADJ_OCCUPIED, ADJ_HOSTILE], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_BARNYARD = {"descriptor": "barnyard", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_BARRACKS = {"descriptor": "barracks", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_BEACH = {"descriptor": "beach", "adjectives": [ADJ_SANDY, ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_BEACH_LAKESIDE = {"descriptor": "lakeside beach", "adjectives": [ADJ_SANDY, ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_BOAT = {"descriptor": "boat", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_HAZARD, ENCOUNTER_PUZZLE, ENCOUNTER_QUEST]}
+    LOC_BOG = {"descriptor": "bog", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_BOGGY_PATCH = {"descriptor": "boggy patch", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_BOULDER = {"descriptor": "boulder", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_QUEST, ENCOUNTER_PUZZLE, ENCOUNTER_SKIRMISH]}
+    LOC_BRAMBLE = {"descriptor": "bramble", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_BRANCH = {"descriptor": "branch", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_BRIDGE = {"descriptor": "bridge", "nouns": [NOUN_NATURAL, NOUN_STONE, NOUN_WOOD], "adjectives": [ADJ_ARCHED, ADJ_CRUMBLING, ADJ_RUINED, ADJ_DESTROYED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE, ENCOUNTER_HAZARD]}
+    LOC_BROOK = {"descriptor": "brook", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_BRUSH = {"descriptor": "brush", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_BUNKER = {"descriptor": "bunker", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_BUSH = {"descriptor": "bush", "adjectives": [ADJ_ABANDONED], "nouns": [NOUN_BERRY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_HAZARD, ENCOUNTER_SOCIAL, ENCOUNTER_REST]}
+    LOC_BUSHLAND = {"descriptor": "bushland", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_CABIN = {"descriptor": "cabin (fisherman's)", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_CAMP = {"descriptor": "camp", "nouns": [NOUN_BANDIT], "adjectives": [ADJ_ABANDONED, ADJ_HASTILY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_CANYON = {"descriptor": "canyon", "adjectives": [ADJ_BARREN], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_CANYON_FLOOR = {"descriptor": "canyon floor", "adjectives": [ADJ_BARREN], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_CAVE = {"descriptor": "cave", "nouns": ["hermit", "hillside"], "adjectives": [ADJ_HIDDEN, ADJ_WIDENING], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_HAZARD, ENCOUNTER_PUZZLE, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_REST]}
+    LOC_CAVERN = {"descriptor": "cavern", "adjectives":[ADJ_HIDDEN], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_CAVE_ENTRANCE = {"descriptor": "cave entrance", "adjectives":[ADJ_HIDDEN], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_CAVE_MOUTH = {"descriptor": "cave mouth", "adjectives":[ADJ_HIDDEN], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_CELLAR = {"descriptor": "cellar", "adjectives":[ADJ_HIDDEN], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_CEMETERY = {"descriptor": "cemetery", "adjectives":[ADJ_HUSHED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_CHAMBER = {"descriptor": "chamber", "adjectives":[ADJ_HUSHED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_CHURCH = {"descriptor": "church", "adjectives":[ADJ_HUSHED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_CIRCLE = {"descriptor": "circle", "nouns":["rock","mushroom","fairy"], "adjectives": [ADJ_OLD], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_CIRCLE_FAERIE = {"descriptor": "circle (faerie)", "adjectives":[ADJ_HUSHED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_CIRCLE_MUSHROOM = {"descriptor": "circle (mushroom)", "adjectives":[ADJ_HUSHED], "adjectives": [], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_PUZZLE]}
+    LOC_CIRCLE_STONE = {"descriptor": "circle (stone)", "adjectives":[ADJ_HUSHED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_CLEARING = {"descriptor": "clearing", "adjectives": [ADJ_DAPPLED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_REST, ENCOUNTER_PUZZLE]}
+    LOC_CLEARWATER = {"descriptor": "clearwater", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_CLIFF = {"descriptor": "cliff", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_CLIFF_EDGE = {"descriptor": "cliff edge", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_COLONY_SEABIRD = {"descriptor": "colony (seabird)", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_COLONY_SEAL = {"descriptor": "colony (seal)", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_COMMUNITY_HALL = {"descriptor": "community hall", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_COPSE = {"descriptor": "copse", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_HAZARD, ENCOUNTER_PUZZLE]}
+    LOC_COTTAGE_PEASANT = {"descriptor": "cottage (peasant's)", "encounter": [ENCOUNTER_SKIRMISH, ENCOUNTER_HAZARD, ENCOUNTER_PUZZLE, ENCOUNTER_SOCIAL, ENCOUNTER_REST, ENCOUNTER_QUEST]}
+    LOC_COVE_HIDDEN = {"descriptor": "cove (hidden)", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_CREEK_BED = {"descriptor": "creek bed", "adjectives": [ADJ_DRY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_DELL = {"descriptor": "dell", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_DEN = {"descriptor": "den", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_DITCH = {"descriptor": "ditch", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_DOCK = {"descriptor": "dock", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_DORMITORY = {"descriptor": "dormitory", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_ECHO_POINT = {"descriptor": "echo point", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_FARMHOUSE = {"descriptor": "farmhouse", "adjectives": [ADJ_BURNT_OUT, ADJ_RUINED, ADJ_ABANDONED, ADJ_OCCUPIED, ADJ_HOSTILE], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_FARMLANDS = {"descriptor": "farmlands", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_FEN = {"descriptor": "fen", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_HAZARD, ENCOUNTER_PUZZLE]}
+    LOC_FERNERY = {"descriptor": "fernery", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_FIELD = {"descriptor": "field", "nouns": ["boulder", "flower", "mushroom"], "adjectives": [], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_SPOT_FISHING = {"descriptor": "fishing spot", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_FJORD = {"descriptor": "fjord", "adjectives": [ADJ_DRY,ADJ_SANDY,ADJ_RAPID], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_FOOTHILL = {"descriptor": "foothill", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_FORMATIONS = {"descriptor": "formations", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_FUNGI_COLONY = {"descriptor": "fungi colony", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_GARDEN_HERBALIST = {"descriptor": "herbalist's garden", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_GARDEN_HIDDEN = {"descriptor": "garden (hidden)", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_GATEHOUSE = {"descriptor": "gatehouse", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_GEODE = {"descriptor": "geode", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_GLADE = {"descriptor": "glade", "adjectives": [ADJ_DAPPLED, ADJ_OVERGROWN, ADJ_RESTFUL], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_REST, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL]}
+    LOC_GRAIN_MILL = {"descriptor": "grain mill", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_GRAVEYARD = {"descriptor": "graveyard", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_GREEN = {"descriptor": "green", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_GROTTO = {"descriptor": "grotto", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_GROVE = {"descriptor": "grove", "encounters": [ENCOUNTER_QUEST, ENCOUNTER_SKIRMISH, ENCOUNTER_SOCIAL, ENCOUNTER_REST]}
+    LOC_GROVE_HIDDEN = {"descriptor": "hidden grove", "adjectives": [], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_PUZZLE]}
+    LOC_GULLY = {"descriptor": "gully", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_HALL = {"descriptor": "hall", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_HIDEOUT = {"descriptor": "hideout", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_HAZARD, ENCOUNTER_PUZZLE]}
+    LOC_HILL = {"descriptor": "hill", "adjectives": [ADJ_FLOWER_COVERED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_HILL_CREST = {"descriptor": "hill crest", "adjectives": [ADJ_BARREN], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_HOLLOW = {"descriptor": "hollow", "adjectives": [], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_HOMESTEAD = {"descriptor": "homestead", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_HOUSE_MAYOR = {"descriptor": "mayor's house", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_HUT_MARSH = {"descriptor": "hut (marsh)", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_HUT_SHEPHERDING = {"descriptor": "hut (shepherding)", "adjectives": [], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_HUT_WITCH = {"descriptor": "hut (witch's)", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_HAZARD, ENCOUNTER_PUZZLE, ENCOUNTER_QUEST]}
+    LOC_IDOL = {"descriptor": "idol (ancient)", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_INFIRMARY = {"descriptor": "infirmary", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_INN = {"descriptor": "inn", "adjectives": [ADJ_BURNT_OUT, ADJ_RUINED, ADJ_ABANDONED], "encounters": [ENCOUNTER_REST, ENCOUNTER_SOCIAL, ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST]}
+    LOC_ISLAND = {"descriptor": "island", "adjectives":[ADJ_BARREN], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_PUZZLE, ENCOUNTER_REST, ENCOUNTER_SOCIAL]}
+    LOC_ISLAND_DUCK = {"descriptor": "island (duck)", "adjectives":[ADJ_BARREN], "encounters": [ENCOUNTER_PUZZLE, ENCOUNTER_REST, ENCOUNTER_SOCIAL]}
+    LOC_ISLAND_REEDY = {"descriptor": "island (reedy)", "adjectives":[ADJ_BARREN], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_PUZZLE, ENCOUNTER_REST, ENCOUNTER_SOCIAL]}
+    LOC_JETTY = {"descriptor": "jetty", "adjectives": [ADJ_SLIPPERY,ADJ_OLD], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_KITCHEN = {"descriptor": "kitchen", "adjectives":[ADJ_BARREN], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_KNOLL = {"descriptor": "knoll", "adjectives": [ADJ_BARREN], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_LAIR = {"descriptor": "lair", "adjectives":[ADJ_BARREN], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_LAKE = {"descriptor": "lake", "adjectives":[ADJ_BARREN], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_LANDING = {"descriptor": "landing (longboat)", "adjectives":[ADJ_BARREN], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_LANDSLIDE = {"descriptor": "landslide", "adjectives":[ADJ_OLD], "adjectives": [ADJ_OLD, ADJ_FRESH], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE, ENCOUNTER_HAZARD]}
+    LOC_LATRINE = {"descriptor": "latrine", "adjectives":[ADJ_ODOUROUS], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_LEDGE = {"descriptor": "ledge", "adjectives": [ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_LIGHTS = {"descriptor": "lights (marsh)", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_HAZARD, ENCOUNTER_PUZZLE]}
+    LOC_LODGE_HUNTING = {"descriptor": "lodge (hunting)", "adjectives": [ADJ_BURNT_OUT, ADJ_RUINED, ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_LOG_FALLEN = {"descriptor": "log (fallen) ", "adjectives": [ADJ_ROTTING, ADJ_FRESHLY, ADJ_LIGHTING_STRUCK, ADJ_MUSHROOM_COVERED, ADJ_LICHEN_COVERED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST]}
+    LOC_LOG_FLOATING = {"descriptor": "log (floating)", "adjectives": [ADJ_ROTTING, ADJ_FRESHLY, ADJ_SMELLY, ADJ_ODOUROUS, ADJ_SLIPPERY, ADJ_MUSHROOM_COVERED, ADJ_LICHEN_COVERED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST]}
+    LOC_MARKET = {"descriptor": "market", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_MARKET_FISH = {"descriptor": "market (fish)", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_MARSH = {"descriptor": "marsh", "adjectives": [ADJ_ODOUROUS], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_MEADOW = {"descriptor": "meadow", "nouns": ["wildflower"], "adjectives": [ADJ_IDYLLIC], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_HAZARD, ENCOUNTER_PUZZLE, ENCOUNTER_SOCIAL]}
+    LOC_MESS_HALL = {"descriptor": "mess hall", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_MINE = {"descriptor": "mine", "adjectives": [ADJ_ABANDONED, ADJ_DESERTED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_MOAT = {"descriptor": "moat", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_MOSSBED = {"descriptor": "mossbed", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_MOUND_BARROW = {"descriptor": "mound (barrow)", "adjectives": [], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_MOUNTAIN = {"descriptor": "mountain", "adjectives":[ADJ_BARREN], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_NAZE = {"descriptor": "naze", "adjectives":[ADJ_PROMINENT], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_NEST = {"descriptor": "nest", "adjectives": [ADJ_ABANDONED, ADJ_OCCUPIED]}
+    LOC_NEST_EAGLE = {"descriptor": "nest (eagle's)", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_OFFICE_QUARTERMASER = {"descriptor": "quartermaster's office", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_ORCHARD = {"descriptor": "orchard", "adjectives": [ADJ_OLD], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_OUTCROP = {"descriptor": "outcrop", "adjectives": [ADJ_ROCKY, ADJ_PRECARIOUS, ADJ_CRUMBLING, ADJ_OVERGROWN, ADJ_JAGGED, ADJ_SHARP, ADJ_ERODED, ADJ_RUGGED, ADJ_SCENIC, ADJ_STRIATED, ADJ_EXPOSED, ADJ_CRYSTALLINE, ADJ_ANCIENT, ADJ_VOLCANIC, ADJ_SEDIMENTARY, ADJ_GEOLOGICAL, ADJ_STONY, ADJ_FOSSILIZED, ADJ_PROMINENT, ADJ_BARE,ADJ_TOWERING, ADJ_GRANITIC, ADJ_PRECIPITOUS], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE, ENCOUNTER_HAZARD]}
+    LOC_OUTPOST_OBSERVATION = {"descriptor": "outpost (observation)", "adjectives":[ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_OUTPOST_TRADING = {"descriptor": "outpost (trading)", "adjectives":[ADJ_ABANDONED],  "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_PADDOCK = {"descriptor": "paddock", "adjectives":[ADJ_ABANDONED],  "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_PASSAGE = {"descriptor": "passage", "adjectives": [ADJ_TWISTING, ADJ_NARROW, ADJ_CRUMBLING], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE, ENCOUNTER_TRAP, ENCOUNTER_HAZARD]}
+    LOC_PATCH = {"descriptor": "patch", "nouns":["wildflower"], "adjectives": [ADJ_OVERGROWN], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_PATCH_LICHEN = {"descriptor": "patch (lichen)", "adjectives":[ADJ_FLOODED],  "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_PATH = {"descriptor": "path", "adjectives": [ADJ_PINE_CONE_LITTERED, ADJ_LEAF_STREWN, ADJ_NARROW], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_PEAK = {"descriptor": "peak",  "adjectives":[ADJ_BARREN], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_PILE_DRIFTWOOD = {"descriptor": "pile (driftwood)",  "adjectives":[ADJ_SLIPPERY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_PILE_LEAF = {"descriptor": "pile (leaf)",  "adjectives":[ADJ_SLIPPERY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_PILLAR = {"descriptor": "pillar", "nouns":["stone"], "adjectives": [ADJ_ANCIENT], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_PIT_SINKING = {"descriptor": "pit (sinking)",  "adjectives":[ADJ_FLOWER_COVERED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_PLATEAU = {"descriptor": "plateau",  "adjectives":[ADJ_FLOWER_COVERED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_POND = {"descriptor": "pond", "adjectives": [ADJ_STAGNANT, ADJ_FETID, ADJ_MUDDY, ADJ_FOUL, ADJ_STINKING, ADJ_FOUL_SMELLING, ADJ_QUIET]}
+    LOC_POOL = {"descriptor": "pool", "adjectives": [ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_REST, ENCOUNTER_PUZZLE]}
+    LOC_POOL_ALLIGATOR = {"descriptor": "pool (alligator)", "adjectives":[ADJ_PEACEFUL], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_POOL_BOG = {"descriptor": "pool (bog)", "adjectives":[ADJ_ODOUROUS], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_HAZARD, ENCOUNTER_PUZZLE, ENCOUNTER_QUEST]}
+    LOC_POOL_MARSH = {"descriptor": "pool (marsh)", "adjectives": [ADJ_SANDY, ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_POOL_UNDERGROUND = {"descriptor": "pool (underground)", "adjectives": [ADJ_SANDY, ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_PRAIRIE = {"descriptor": "prairie", "adjectives": [ADJ_SANDY, ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_PRECIPICE = {"descriptor": "precipice", "adjectives": [ADJ_SANDY, ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_QUAGMIRE = {"descriptor": "quagmire", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_QUARRY = {"descriptor": "quarry", "adjectives": [ADJ_SANDY, ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_QUARTERS_COMMANDER = {"descriptor": "commander's quarter's", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_QUARTERS_OFFICER = {"descriptor": "officer's quarters", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_RAPIDS = {"descriptor": "rapids", "adjectives": [ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE, ENCOUNTER_HAZARD]}
+    LOC_RAVINE = {"descriptor": "ravine", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_RIDGE = {"descriptor": "ridge", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_RING_FAIRY = {"descriptor": "ring (fairy)", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_RIVER = {"descriptor": "river", "adjectives": [ADJ_RAPID], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_RIVERBED = {"descriptor": "riverbed", "adjectives": [ADJ_ROCKY, ADJ_MUDDY, ADJ_SANDY, ADJ_DRY, ADJ_FLOODED, ADJ_DAMP, ADJ_OVERGROWN, ADJ_SUN_BAKED, ADJ_LUSH, ADJ_BARREN, ADJ_WINDING, ADJ_DEEP, ADJ_SHALLOW, ADJ_RUGGED, ADJ_SLIPPERY, ADJ_SMOOTH, ADJ_PEBBLY, ADJ_SHADOWY, ADJ_MEANDERING, ADJ_SERENE], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_RIVER_BANK = {"descriptor": "river bank", "adjectives": [ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_RIVER_BEND = {"descriptor": "river bend", "adjectives": [ADJ_MEANDERING, ADJ_SERENE, ADJ_PICTURESQUE, ADJ_TWISTING, ADJ_FLOWING, ADJ_TRANQUIL, ADJ_LUSH, ADJ_WINDING, ADJ_SWEEPING, ADJ_MURMURING, ADJ_VERDANT, ADJ_PEACEFUL, ADJ_SHIMMERING, ADJ_GLISTENING, 'inviting', 'scenic', 'undulating', 'quiet', 'rustic', ADJ_IDYLLIC], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE, ENCOUNTER_HAZARD]}
+    LOC_RIVER_UNDERGROUND = {"descriptor": "river (underground)", "adjectives": [ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_ROOM_STORAGE = {"descriptor": "room (storage)", "adjectives": [ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_ROOST = {"descriptor": "roost", "adjectives": [ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_ROOT = {"descriptor": "root", "adjectives": [ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_RUINS = {"descriptor": "ruins", "adjectives": [ADJ_TUMBLEDOWN, ADJ_BURNT_OUT, ADJ_CRUMBLING], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_RUINS_HILL_FORT = {"descriptor": "ruins (hill fort)", "adjectives": [], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_SCHOOLHOUSE = {"descriptor": "schoolhouse", "adjectives": [ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_SCRUB = {"descriptor": "scrub", "adjectives": [ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_HAZARD, ENCOUNTER_PUZZLE]}
+    LOC_SEA_VIEW = {"descriptor": "sea view", "adjectives": [ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_SEWER = {"descriptor": "sewer", "adjectives": [ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_SHALLOWS = {"descriptor": "shallows", "adjectives": [ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_SHELF = {"descriptor": "shelf", "adjectives": [ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_SHOP_COBBLER = {"descriptor": "shop (cobbler's)", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_SHORE_REEDY = {"descriptor": "shore (reedy)", "adjectives": [ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_SLOPE = {"descriptor": "slope", "adjectives": [ADJ_ROCKY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_SLOPE_SCREE = {"descriptor": "slope (scree)", "adjectives": [ADJ_FRESH], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_HAZARD]}
+    LOC_SPRING = {"descriptor": "spring", "adjectives": [ADJ_OLD], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_SPRING_HOT = {"descriptor": "spring (hot)", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_SPRING_MOUNTAIN = {"descriptor": "spring (mountain)", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_SPRING_UNDERGROUND = {"descriptor": "spring (underground)", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_SQUARE = {"descriptor": "square", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_STABLE = {"descriptor": "stable", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_STAGS_LEAP = {"descriptor": "stag's leap", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_HAZARD, ENCOUNTER_SKIRMISH, ENCOUNTER_SOCIAL]}
+    LOC_STALACTITES = {"descriptor": "stalactites", "adjectives": [ADJ_DRIPPING], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_HAZARD, ENCOUNTER_PUZZLE]}
+    LOC_STALAGMITES = {"descriptor": "stalagmites", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_STAND = {"descriptor": "stand", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_STOCKAdE = {"descriptor": "stockade", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_STORE_GENERAL = {"descriptor": "general store", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_STREAM = {"descriptor": "stream", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_STREAM_UNDERGROUND = {"descriptor": "stream (underground)", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_SWAMP = {"descriptor": "swamp", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_TAVERN = {"descriptor": "tavern", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_THICKET = {"descriptor": "thicket", "adjectives": [ADJ_BUSHY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST]}
+    LOC_TIMBERLAND = {"descriptor": "timberland", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_TOWER = {"descriptor": "tower", "nouns":["guard"], "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_TRAIL = {"descriptor": "trail", "nouns": ["animal", "cart", "woodland"], "adjectives": [ADJ_DUSTY, ADJ_OVERGROWN, ADJ_MUDDY, ADJ_ROUGH, ADJ_RUGGED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_TRAINING_GROUND = {"descriptor": "training ground", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_TREE = {"descriptor": "tree", "adjectives": [ADJ_ANCIENT, ADJ_FALLEN, ADJ_HOLLOW, ADJ_LONE, ADJ_STANDING], "nouns": ["archway", "lone", "stump"], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_REST, ENCOUNTER_PUZZLE]}
+    LOC_TREE_LINE = {"descriptor": "tree-line", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_TREE_TUNNEL = {"descriptor": "tunnel (tree)", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_TREE_WILLOW = {"descriptor": "  (willow)", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_TRENCH = {"descriptor": "trench", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_TRUNK = {"descriptor": "trunk", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_TUNNEL = {"descriptor": "tunnel", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_UNDERBRUSH = {"descriptor": "underbrush", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_UNDERGROWTH = {"descriptor": "undergrowth", "adjectives": [ADJ_BUSHY], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST]}
+    LOC_UNDERSTORY = {"descriptor": "understory", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_VALLEY = {"descriptor": "valley", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_VALUE = {"descriptor": "vale", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_VILLAGE = {"descriptor": "village (fishing)", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_VINE = {"descriptor": "vine", "nouns": "tangle", "adjectives": [ADJ_CREEPING], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_WAGON_RUTS = {"descriptor": "wagon ruts", "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_WALL = {"descriptor": "wall", "adjectives": [ADJ_GLISTENING, ADJ_FOSSIL], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_WATCHPOST = {"descriptor": "watch post", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_WATCHTOWER = {"descriptor": "watchtower", "adjectives": [ADJ_ABANDONED, ADJ_OLD, ADJ_RUINED, ADJ_HOSTILE, ADJ_BURNT_OUT], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_REST]}
+    LOC_WATERFALL = {"descriptor": "waterfall", "adjectives": [ADJ_IDYLLIC, ADJ_WHISPERING], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_WATER_WELL = {"descriptor": "water well", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_SPOT_WILL_O_WISP = {"descriptor": "will-o'-the-wisp spot", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_WORKSHOP_ARTISAN = {"descriptor": "workshop (artisan's)", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_WORKSHOP_BLACKSMITH = {"descriptor": "workshop (blacksmith's)", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_WORKSHOP_CARPENTER = {"descriptor": "workshop (carpenter's)", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+    LOC_WORKSHOP_WEAVER = {"descriptor": "workshop (weaver's)", "adjectives": [ADJ_ABANDONED], "encounters": [ENCOUNTER_SKIRMISH, ENCOUNTER_QUEST, ENCOUNTER_SOCIAL, ENCOUNTER_PUZZLE]}
+
     locations = [
-        {"descriptor": "alcove (hidden)"},
-        {"descriptor": "animal burrow", "encounters": ["skirmish", "hazard"]},
-        {"descriptor": "animal pens"},
-        {"descriptor": "apothecary"},
-        {"descriptor": "armory"},
-        {"descriptor": "avalanche site"},
-        {"descriptor": "bakery"},
-        {"descriptor": "barn", "adjectives": ["burnt out", "ruined", "abandoned", "occupied working", "hostile occupied"], "encounters": []},
-        {"descriptor": "barnyard"},
-        {"descriptor": "barracks"},
-        {"descriptor": "beach (lakeside)"},
-        {"descriptor": "beach", "adjectives": ["sandy", "rocky"]},
-        {"descriptor": "boat", "adjectives": ["abandoned"], "encounters": ["skirmish", "hazard", "puzzle", "quest"]},
-        {"descriptor": "bog", "encounters": []},
-        {"descriptor": "boggy patch"},
-        {"descriptor": "boulder", "encounters": ["quest", "puzzle", "skirmish"]},
-        {"descriptor": "bramble", "encounters": []},
-        {"descriptor": "branch", "encounters": []},
-        {"descriptor": "bridge (natural)", "encounters": []},
-        {"descriptor": "bridge", "adjectives": ["wooden", "stone", "arched", "crumbling", "ruined", "destroyed"], "encounters": ["skirmish", "quest", "social", "puzzle", "hazard"]},
-        {"descriptor": "brook", "encounters": []},
-        {"descriptor": "brush", "encounters": []},
-        {"descriptor": "bunker"},
-        {"descriptor": "bush (berry)", "encounters": []},
-        {"descriptor": "bushland", "encounters": []},
-        {"descriptor": "cabin (fisherman's)"},
-        {"descriptor": "camp", "adjectives": ["bandit", "abandoned", "hastily"], "encounters": []},
-        {"descriptor": "canopy", "encounters": []},
-        {"descriptor": "canyon floor"},
-        {"descriptor": "canyon"},
-        {"descriptor": "cave (hermit's)"},
-        {"descriptor": "cave (hidden)"},
-        {"descriptor": "cave (hillside)", "adjectives": [], "encounters": ["skirmish", "quest", "social", "puzzle"]},
-        {"descriptor": "cave", "adjectives": ["widening"]},
-        {"descriptor": "cavern", "encounters": []},
-        {"descriptor": "cellar"},
-        {"descriptor": "cemetery"},
-        {"descriptor": "chamber"},
-        {"descriptor": "church"},
-        {"descriptor": "circle (faerie)"},
-        {"descriptor": "circle (mushroom)", "adjectives": [], "encounters": ["skirmish", "quest", "puzzle"]},
-        {"descriptor": "circle (stone)", "adjectives": [], "encounters": ["skirmish", "quest", "social", "puzzle"]},
-        {"descriptor": "circle", "adjectives": ["rock", "mushroom", "fairy"], "encounters": []},
-        {"descriptor": "clearing", "adjectives": ["sunlit"], "encounters": ["skirmish", "quest", "social", "rest", "puzzle"]},
-        {"descriptor": "clearwater", "encounters": []},
-        {"descriptor": "cliff edge"},
-        {"descriptor": "cliff", "encounters": []},
-        {"descriptor": "colony (seabird)"},
-        {"descriptor": "colony (seal)"},
-        {"descriptor": "commander's quarter's"},
-        {"descriptor": "community hall"},
-        {"descriptor": "copse", "encounters": ["skirmish", "hazard", "puzzle"]},
-        {"descriptor": "cottage (peasant's)", "encounter": ["skirmish", "hazard", "puzzle", "social", "rest", "quest"]},
-        {"descriptor": "cove (hidden)"},
-        {"descriptor": "creek bed", "adjectives": ["dry"], "encounters": []},
-        {"descriptor": "dell", "encounters": []},
-        {"descriptor": "den", "encounters": []},
-        {"descriptor": "ditch"},
-        {"descriptor": "dock"},
-        {"descriptor": "dormitory"},
-        {"descriptor": "echo point"},
-        {"descriptor": "entrance (cave)"},
-        {"descriptor": "entrance (cave)"},
-        {"descriptor": "farmhouse", "adjectives": ["burnt out", "ruined", "abandoned", "occupied working", "hostile occupied"], "encounters": []},
-        {"descriptor": "farmlands"},
-        {"descriptor": "fen", "encounters": ["skirmish", "hazard", "puzzle"]},
-        {"descriptor": "fernery", "encounters": []},
-        {"descriptor": "field (boulder)", "encounters": []},
-        {"descriptor": "field (flower)", "encounters": []},
-        {"descriptor": "field (mushroom)"},
-        {"descriptor": "field (rolling)", "adjectives": [], "encounters": ["skirmish", "quest", "social", "puzzle"]},
-        {"descriptor": "fishing spot"},
-        {"descriptor": "fjord", "adjectives": [], "encounters": ["skirmish", "quest", "social", "puzzle"]},
-        {"descriptor": "foothill", "encounters": []},
-        {"descriptor": "formations"},
-        {"descriptor": "fungi colony", "encounters": []},
-        {"descriptor": "garden (hidden)"},
-        {"descriptor": "gatehouse"},
-        {"descriptor": "general store"},
-        {"descriptor": "geode"},
-        {"descriptor": "glade", "adjectives": ["sunny", "overgrown", "restful"], "encounters": ["skirmish", "rest", "quest", "social"]},
-        {"descriptor": "grain mill"},
-        {"descriptor": "knoll", "adjectives": ["grassy", "barren"], "encounters": ["skirmish", "quest", "social", "puzzle"]},
-        {"descriptor": "graveyard", "encounters": []},
-        {"descriptor": "green"},
-        {"descriptor": "grotto", "encounters": []},
-        {"descriptor": "grove", "encounters": ["quest", "skirmish", "social", "rest"]},
-        {"descriptor": "gully", "encounters": []},
-        {"descriptor": "hall"},
-        {"descriptor": "herbalist's garden"},
-        {"descriptor": "hidden grove", "adjectives": [], "encounters": ["skirmish", "puzzle"]},
-        {"descriptor": "hideout", "encounters": ["skirmish", "hazard", "puzzle"]},
-        {"descriptor": "hill crest", "adjectives": [], "encounters": ["skirmish", "quest", "social", "puzzle"]},
-        {"descriptor": "hill", "adjectives": ["flower-covered"], "encounters": []},
-        {"descriptor": "hollow", "adjectives": [], "encounters": ["skirmish", "quest", "social", "puzzle"]},
-        {"descriptor": "homestead"},
-        {"descriptor": "hut (marsh)"},
-        {"descriptor": "hut (shepherding)", "adjectives": [], "encounters": ["skirmish", "quest", "social", "puzzle"]},
-        {"descriptor": "idol (ancient)"},
-        {"descriptor": "infirmary"},
-        {"descriptor": "inn", "adjectives": ["burnt out", "ruined", "abandoned", "hostile occupied"], "encounters": ["rest", "social", "skirmish", "quest"]},
-        {"descriptor": "island (duck)", "encounters": ["puzzle", "rest", "social"]},
-        {"descriptor": "island (reedy)", "encounters": ["skirmish", "puzzle", "rest", "social"]},
-        {"descriptor": "island", "encounters": ["skirmish", "puzzle", "rest", "social"]},
-        {"descriptor": "jetty", "adjectives": ["old"]},
-        {"descriptor": "kitchen"},
-        {"descriptor": "knoll", "encounters": []},
-        {"descriptor": "lair", "encounters": []},
-        {"descriptor": "lake", "encounters": []},
-        {"descriptor": "landing (longboat)"},
-        {"descriptor": "landslide", "adjectives": ["old"]},
-        {"descriptor": "latrine"},
-        {"descriptor": "ledge", "adjectives": ["rocky"]},
-        {"descriptor": "lights (marsh)", "encounters": ["skirmish", "hazard", "puzzle"]},
-        {"descriptor": "lodge (hunting)", "adjectives": ["burnt out", "ruined", "abandoned", "occupied working", "hostile occupied"], "encounters": []},
-        {"descriptor": "log (fallen) ", "adjectives": ["rotting", "freshly", "lightning struck", "mushroom covered"], "encounters": ["skirmish", "quest"]},
-        {"descriptor": "log (floating)", "adjectives": ["rotting", "freshly", "smelly", "slippery", "mushroom covered"], "encounters": ["skirmish", "quest"]},
-        {"descriptor": "market (fish)"},
-        {"descriptor": "market"},
-        {"descriptor": "marsh", "encounters": []},
-        {"descriptor": "mayor's house"},
-        {"descriptor": "meadow", "adjectives": ["wildflower"], "encounters": ["skirmish", "hazard", "puzzle", "social"]},
-        {"descriptor": "mess hall"},
-        {"descriptor": "mine", "adjectives": ["abandoned", "deserted"], "encounters": []},
-        {"descriptor": "moat"},
-        {"descriptor": "mossbed", "encounters": []},
-        {"descriptor": "mound (barrow)", "adjectives": [], "encounters": ["skirmish", "quest", "social", "puzzle"]},
-        {"descriptor": "mountain"},
-        {"descriptor": "mouth (cave)"},
-        {"descriptor": "naze"},
-        {"descriptor": "nest (eagle's)"},
-        {"descriptor": "nest", "adjectives": ["abandoned", "occupied"]},
-        {"descriptor": "officer's quarters"},
-        {"descriptor": "orchard", "adjectives": ["old"]},
-        {"descriptor": "outcrop", "adjectives": ["rocky", "precarious", "crumbling", "overgrown", "jagged", "sharp", "eroded", "rugged", "scenic", "striated", "exposed", "crystalline", "ancient", "volcanic", "sedimentary", "geological", "stony", "fossilized", "prominent", "bare", "towering", "granitic", "precipitous"], "encounters": ["skirmish", "quest", "social", "puzzle", "hazard"]},
-        {"descriptor": "paddock"},
-        {"descriptor": "pass (mountain)"},
-        {"descriptor": "passage", "adjectives": ["twisting", "narrow", "crumbling"], "encounters": ["skirmish", "quest", "social", "puzzle", "trap", "hazard"]},
-        {"descriptor": "patch (lichen)", "encounters": []},
-        {"descriptor": "patch", "adjectives": ["wilderflower"], "encounters": ["skirmish", "quest", "social", "puzzle"]},
-        {"descriptor": "path", "adjectives": ["pine cone-littered", "narrow"], "encounters": []},
-        {"descriptor": "peak", "encounters": []},
-        {"descriptor": "pile (driftwood)"},
-        {"descriptor": "pile (leaf)", "encounters": []},
-        {"descriptor": "pillar", "adjectives": ["stone"], "encounters": []},
-        {"descriptor": "pit (sinking)"},
-        {"descriptor": "plateau", "encounters": []},
-        {"descriptor": "pond", "adjectives": ["stagnant", "fetid", "muddy", "foul", "stinking", "fetid", "foul-smell", "quiet"]},
-        {"descriptor": "pool (alligator)"},
-        {"descriptor": "pool (bog)", "encounters": ["skirmish", "hazard", "puzzle", "quest"]},
-        {"descriptor": "pool (marsh)"},
-        {"descriptor": "pool (underground)"},
-        {"descriptor": "pool", "adjectives": [], "encounters": ["skirmish", "quest", "rest", "puzzle"]},
-        {"descriptor": "outpost (observation)"},
-        {"descriptor": "prairie"},
-        {"descriptor": "precipice"},
-        {"descriptor": "quagmire"},
-        {"descriptor": "quarry", "encounters": []},
-        {"descriptor": "quartermaster's office"},
-        {"descriptor": "rapids", "adjectives": [], "encounters": ["skirmish", "quest", "social", "puzzle", "hazard"]},
-        {"descriptor": "ravine", "encounters": []},
-        {"descriptor": "ridge", "encounters": []},
-        {"descriptor": "ring (fairy)", "encounters": []},
-        {"descriptor": "river (underground)"},
-        {"descriptor": "river bank", "adjectives": [], "encounters": ["skirmish", "quest", "social", "puzzle"]},
-        {"descriptor": "river bend", "adjectives": ['meandering', 'serene', 'picturesque', 'twisting', 'flowing', 'tranquil', 'lush', 'winding', 'sweeping', 'murmuring', 'verdant', 'peaceful', 'shimmering', 'glistening', 'inviting', 'scenic', 'undulating', 'quiet', 'rustic', 'idyllic'], "encounters": ["skirmish", "quest", "social", "puzzle", "hazard"]},
-        {"descriptor": "river", "adjectives": ["rapid"], "encounters": []},
-        {"descriptor": "riverbed", "adjectives": ["rocky", "muddy", "sandy", "dry", "flooded", "damp", "overgrown", "sun-baked", "lush", "barren", "winding", "deep", "shallow", "rugged", "slippery", "smooth", "pebbly", "shadowy", "meandering", "serene"], "encounters": ["skirmish", "quest", "social", "puzzle"]},
-        {"descriptor": "room (storage)"},
-        {"descriptor": "roost"},
-        {"descriptor": "root", "encounters": []},
-        {"descriptor": "ruins (hill fort)", "adjectives": [], "encounters": ["skirmish", "quest", "social", "puzzle"]},
-        {"descriptor": "ruins", "adjectives": ["tumbledown", "burnt out", "crumbling"], "encounters": []},
-        {"descriptor": "schoolhouse"},
-        {"descriptor": "scrub", "encounters": ["skirmish", "hazard", "puzzle"]},
-        {"descriptor": "sea view"},
-        {"descriptor": "sewer"},
-        {"descriptor": "shallows"},
-        {"descriptor": "shelf", "adjectives": ["rocky"]},
-        {"descriptor": "shop (cobbler's)"},
-        {"descriptor": "shore (reedy)"},
-        {"descriptor": "slope (scree)", "adjectives": [], "encounters": ["skirmish", "quest", "social", "hazard"]},
-        {"descriptor": "slope", "adjectives": ["rocky"]},
-        {"descriptor": "spring (hot)"},
-        {"descriptor": "spring (mountain)"},
-        {"descriptor": "spring (underground)"},
-        {"descriptor": "spring", "adjectives": [], "encounters": ["skirmish", "quest", "social", "puzzle"]},
-        {"descriptor": "square"},
-        {"descriptor": "stable"},
-        {"descriptor": "stag's leap", "encounters": ["hazard", "skirmish", "social"]},
-        {"descriptor": "stalactites", "adjectives": ["dripping"], "encounters": ["skirmish", "hazard", "puzzle"]},
-        {"descriptor": "stalagmites"},
-        {"descriptor": "stand", "encounters": []},
-        {"descriptor": "stockade"},
-        {"descriptor": "stream (underground)"},
-        {"descriptor": "stream", "encounters": []},
-        {"descriptor": "swamp", "encounters": []},
-        {"descriptor": "tavern"},
-        {"descriptor": "thicket", "adjectives": [], "encounters": ["skirmish", "quest"]},
-        {"descriptor": "timberland", "encounters": []},
-        {"descriptor": "tower", "adjectives": ["abandoned", "guard"], "encounters": []},
-        {"descriptor": "track (animal)", "adjectives": [], "encounters": ["skirmish", "quest"]},
-        {"descriptor": "outpost (trading)"},
-        {"descriptor": "trail (cart)", "adjectives": [], "encounters": ["skirmish", "quest", "social", "puzzle"]},
-        {"descriptor": "trail", "adjectives": ["dusty", "overgrown", "muddy", "rough", "rugged"], "encounters": ["skirmish", "quest", "social", "puzzle"]},
-        {"descriptor": "training ground"},
-        {"descriptor": "tree (ancient)", "adjectives": [], "encounters": ["skirmish", "puzzle"]},
-        {"descriptor": "tree (archway)", "encounters": []},
-        {"descriptor": "tree (fallen)", "encounters": []},
-        {"descriptor": "tree (hollow)", "adjectives": [], "encounters": ["skirmish", "quest", "rest", "puzzle"]},
-        {"descriptor": "tree (lone)", "adjectives": [], "encounters": ["skirmish", "quest", "social", "puzzle"]},
-        {"descriptor": "tree (standing)"},
-        {"descriptor": "tree (stump)", "encounters": []},
-        {"descriptor": "tree-line", "encounters": []},
-        {"descriptor": "treetop", "encounters": []},
-        {"descriptor": "trench"},
-        {"descriptor": "trunk", "encounters": []},
-        {"descriptor": "tunnel"},
-        {"descriptor": "tunnel (tree)"},
-        {"descriptor": "underbrush", "encounters": []},
-        {"descriptor": "undergrowth", "adjectives": ["bushy"], "encounters": ["skirmish", "quest"]},
-        {"descriptor": "understory", "encounters": []},
-        {"descriptor": "vale", "encounters": []},
-        {"descriptor": "valley"},
-        {"descriptor": "village (fishing)"},
-        {"descriptor": "vine (creeping)"},
-        {"descriptor": "vine (tangle)", "encounters": []},
-        {"descriptor": "wagon ruts"},
-        {"descriptor": "wall", "adjectives": ["glistening", "fossil"], "encounters": ["skirmish", "quest", "social", "puzzle"]},
-        {"descriptor": "watch post"},
-        {"descriptor": "watchtower", "adjectives": ["old"]},
-        {"descriptor": "water well"},
-        {"descriptor": "waterfall", "adjectives": [], "encounters": ["skirmish", "quest", "social", "puzzle"]},
-        {"descriptor": "will-o'-the-wisp spot"},
-        {"descriptor": "tree (willow)"},
-        {"descriptor": "hut (witch's)", "encounters": ["skirmish", "hazard", "puzzle", "quest"]},
-        {"descriptor": "trail (woodland)", "adjectives": [], "encounters": ["skirmish"]},
-        {"descriptor": "workshop (artisan's)"},
-        {"descriptor": "workshop (blacksmith's)"},
-        {"descriptor": "workshop (carpenter's)"},
-        {"descriptor": "workshop (weaver's)"},
-        {"descriptor": "workshop"},
+        LOC_ALCOVE,
+        LOC_ANIMAL_BURROW,
+        LOC_ANIMAL_PENS,
+        LOC_APOTHECARY,
+        LOC_ARMORY,
+        LOC_MARSH,
+        LOC_CANYON,
+        LOC_CANYON_FLOOR,
+        LOC_CAVE,
+        LOC_ISLAND,
+        LOC_ISLAND_DUCK,
+        LOC_AVALANCHE_SITE,
+        LOC_POOL_MARSH,
+        LOC_JETTY,
+        LOC_BAKERY,
+        LOC_BARN,
+        LOC_BARNYARD,
+        LOC_BARRACKS,
+        LOC_BOAT,
+        LOC_WALL,
+        LOC_WATERFALL,
+        LOC_WATCHPOST,
+        LOC_UNDERBRUSH,
+        LOC_UNDERGROWTH,
+        LOC_TRENCH,
+        LOC_TREE,
+        LOC_TRUNK,
+        LOC_THICKET,
+        LOC_TOWER,
+        LOC_VINE,
+        LOC_FJORD,
+        LOC_CAVE_ENTRANCE,
+        LOC_CAVE_MOUTH,
+        LOC_WORKSHOP_ARTISAN,
+        LOC_WORKSHOP_BLACKSMITH,
+        LOC_WORKSHOP_CARPENTER,
+        LOC_WORKSHOP_WEAVER,
+        LOC_SPRING,
+        LOC_TREE_TUNNEL,
+        LOC_RIVER,
+        LOC_RAPIDS,
+        LOC_BRIDGE,
+        LOC_RIVER_BANK,
+        LOC_RIVER_BEND,
+        LOC_MOUNTAIN,
+        LOC_MOUNTAIN_PASS,
+        LOC_SPRING_MOUNTAIN,
+        LOC_LAKE,
+        LOC_MEADOW,
+        LOC_HILL,
+        LOC_SWAMP,
+        LOC_CAVERN,
+        LOC_PATCH,
+        LOC_POOL,
+        LOC_BOG,
+        LOC_BOGGY_PATCH,
+        LOC_POOL_BOG,
+        LOC_OUTPOST_OBSERVATION,
+        LOC_OUTPOST_TRADING,
+        LOC_HILL_CREST,
+        LOC_POOL_UNDERGROUND,
+    ]
+
+    ZONE_WOODLAND = {
+        "zone": "woodland",
+        "locations_to_use": {"minimum": 4, "maximum": 8},
+        "locations": [LOC_WATCHPOST, LOC_WATERFALL, LOC_UNDERGROWTH, LOC_UNDERBRUSH, LOC_TRENCH, LOC_TREE, LOC_VINE, LOC_TRUNK, LOC_THICKET, LOC_TOWER, LOC_SPRING]
+    }
+
+    ZONE_FOREST = {
+        "zone": "forest",
+        "locations_to_use": {"minimum": 4, "maximum": 8},
+        "locations": [LOC_WATERFALL, LOC_TREE, LOC_TREE_TUNNEL]
+    }
+    ZONE_RIVER = {
+        "zone": "river",
+        "locations_to_use": {"minimum": 4, "maximum": 8},
+        "locations": [LOC_RIVER, LOC_BRIDGE, LOC_RIVER_BANK, LOC_RIVER_BEND, LOC_FJORD, LOC_RAPIDS]
+    }
+    ZONE_MOUNTAIN = {
+        "zone": "mountain",
+        "locations_to_use": {"minimum": 4, "maximum": 8},
+        "locations": [LOC_MOUNTAIN, LOC_SPRING_MOUNTAIN, LOC_MOUNTAIN_PASS]
+    }
+    ZONE_LAKE = {
+        "zone": "lake",
+        "locations_to_use": {"minimum": 4, "maximum": 8},
+        "locations": [LOC_LAKE, LOC_JETTY]
+    }
+    ZONE_MARSH = {
+        "zone": "marsh",
+        "locations_to_use": {"minimum": 4, "maximum": 8},
+        "locations": [LOC_MARSH, LOC_POOL_MARSH, LOC_ISLAND, LOC_ISLAND_DUCK]
+    }
+    ZONE_CANYON = {
+        "zone": "canyon",
+        "locations_to_use": {"minimum": 4, "maximum": 8},
+        "locations": [LOC_CANYON, LOC_CANYON_FLOOR]
+    }
+    ZONE_CAVE = {
+        "zone": "cave",
+        "locations_to_use": {"minimum": 4, "maximum": 8},
+        "locations": [LOC_CAVE, LOC_CAVE_ENTRANCE, LOC_CAVE_MOUTH, LOC_POOL_UNDERGROUND]
+    }
+    ZONE_HILL = {
+        "zone": "hill",
+        "locations_to_use": {"minimum": 4, "maximum": 8},
+        "locations": [LOC_HILL, LOC_HILL_CREST]
+    }
+    ZONE_MEADOW = {
+        "zone": "meadow",
+        "locations_to_use": {"minimum": 4, "maximum": 8},
+        "locations": [LOC_MEADOW]
+    }
+    ZONE_CAVERN = {
+        "zone": "cavern",
+        "locations_to_use": {"minimum": 2, "maximum": 9},
+        "locations": [LOC_CAVERN]
+    }
+    ZONE_SWAMP = {
+        "zone": "swamp",
+        "locations_to_use": {"minimum": 4, "maximum": 8},
+        "locations": [LOC_SWAMP, LOC_BOAT, LOC_PATCH, LOC_BRIDGE, LOC_POOL]
+    }
+    ZONE_BOG = {
+        "zone": "bog",
+        "locations_to_use": {"minimum": 2, "maximum": 3},
+        "locations": [LOC_BOG, LOC_BOGGY_PATCH, LOC_POOL_BOG, LOC_BOAT, LOC_TREE]
+    }
+    ZONE_OUTPOST = {
+        "zone": "outpost",
+        "locations_to_use": {"minimum": 3, "maximum": 6},
+        "locations": [LOC_OUTPOST_OBSERVATION, LOC_OUTPOST_TRADING]
+    }
+    ZONE_WATCHTOWER = {
+        "zone": "outpost",
+        "locations_to_use": {"minimum": 3, "maximum": 6},
+        "locations": [LOC_WATCHTOWER, LOC_TRENCH, LOC_MOAT, LOC_WATCHPOST, LOC_GATEHOUSE, LOC_ALCOVE, LOC_ARMORY, LOC_MESS_HALL, LOC_BRIDGE]
+    }
+
+    ZONE_VILLAGE = {
+        "zone": "outpost",
+        "locations_to_use": {"minimum": 3, "maximum": 6},
+        "locations": [LOC_BRIDGE, LOC_BAKERY, LOC_MARKET, LOC_MARKET_FISH, LOC_WORKSHOP_BLACKSMITH, LOC_WORKSHOP_CARPENTER, LOC_WORKSHOP_WEAVER]
+    }
+
+    zones = [
+        ZONE_WOODLAND,
+        ZONE_FOREST,
+        ZONE_RIVER,
+        ZONE_MOUNTAIN,
+        ZONE_LAKE,
+        ZONE_MARSH,
+        ZONE_CANYON,
+        ZONE_CAVE,
+        ZONE_HILL,
+        ZONE_MEADOW,
+        ZONE_CAVERN,
+        ZONE_SWAMP,
+        ZONE_BOG,
+        ZONE_OUTPOST,
     ]
 
     environments = [
-                       {
-                           "type": "highland wilderness",
-                           "zones": [
-                               {
-                                   "zone": "woodland",
-                                   "locations_to_use": {"minimum": 2, "maximum": 3},
-                                   "locations": []
-                               },
-                               {
-                                   "zone": "forest",
-                                   "locations": []
-                               },
-                               {
-                                   "zone": "river",
-                                   "locations": []
-                               },
-                               {
-                                   "zone": "mountain",
-                                   "locations": []
-                               },
-                               {
-                                   "zone": "lake",
-                                   "locations": []
-                               },
-                               {
-                                   "zone": "marsh",
-                                   "locations": []
-                               },
-                               {
-                                   "zone": "canyon",
-                                   "locations": []
-                               },
-                               {
-                                   "zone": "cave",
-                                   "locations": []
-                               },
-                               {
-                                   "zone": "hill",
-                                   "locations": []
-                               },
-                               {
-                                   "zone": "meadow",
-                                   "locations": []
-                               },
-                               {
-                                   "zone": "cavern",
-                                   "locations_to_use": {"minimum": 2, "maximum": 6},
-                                   "locations": [
-                                   ]
-                               },
-                               {
-                                   "zone": "swamp",
-                                   "locations_to_use": {"minimum": 2, "maximum": 3},
-                               },
-                               {
-                                   "zone": "bog",
-                                   "locations_to_use": {"minimum": 2, "maximum": 3},
-                                   "locations": []
-                               },
-                               {
-                                   "zone": "outpost",
-                                   "locations_to_use": {"minimum": 3, "maximum": 6},
-                               }],
-                           "seasons": ["spring", "summer", "autumn", "winter"],
-                           "climates": ["temperate"],
-                       },
-                       {
-                           "subtypes": ["abandoned military", "working military", "abandoned hunting", "working hunting"],
-                           "seasons": ["spring", "summer", "autumn", "winter"],
-                           "climates": ["temperate", "alpine", "desert", "tundra", "tropical", "polar"],
-                           "locations": []
-                       },
-                       {
-                           "type": "watchtower",
-                           "subtypes": ["abandoned military", "working military"],
-                           "seasons": ["spring", "summer", "autumn", "winter"],
-                           "climates": ["temperate", "alpine", "desert", "tundra", "tropical", "polar"],
-                           "locations": ["barracks", "storage room", "armory", "dormitory", "latrine", "cellar", "stable", "stockade", "sewer"]
-                       },
-                       {
-                           "type": "village",
-                           "subtypes": ["abandoned", "populated", "haunted", "fortified", "fishing", "market", "nomadic"],
-                           "seasons": ["spring", "summer", "autumn", "winter"],
-                           "climates": ["temperate", "alpine", "desert", "tundra", "tropical", "polar"],
-                       },
+        {
+            "type": "highland wilderness",
+            "levels": {"minimum": 1, "maximum": 10},
+            "zones": [ZONE_WOODLAND, ZONE_FOREST, ZONE_RIVER, ZONE_MOUNTAIN, ZONE_LAKE, ZONE_MARSH, ZONE_CANYON, ZONE_CAVE, ZONE_HILL, ZONE_MEADOW, ZONE_CAVERN, ZONE_SWAMP, ZONE_BOG, ZONE_OUTPOST],
+            "seasons": [SEASON_SPRING, SEASON_SUMMER, SEASON_AUTUMN, SEASON_WINTER],
+            "climates": [CLIMATE_TEMPERATE],
+        },
+        # watchtowers
+        {
+            "type": "abandoned watchtower",
+            "adjectives": ["abandoned, ruined, derelict, deserted, empty, forsaken, neglected, uninhabited, unoccupied, vacant"],
+            "levels": {"minimum": 1, "maximum": 10},
+            "zones": [ZONE_WOODLAND, ZONE_RIVER, ZONE_WATCHTOWER],
+            "seasons": [SEASON_SPRING, SEASON_SUMMER, SEASON_AUTUMN, SEASON_WINTER],
+            "climates": [CLIMATE_TEMPERATE, CLIMATE_ALPINE, CLIMATE_DESERT, CLIMATE_TUNDRA, CLIMATE_TROPICAL, CLIMATE_POLAR],
+        },
+        {
+            "type": "haunted watchtower",
+            "adjectives": ["haunted", "ghostly", "ghastly", "spectral", "undead", "unearthly"],
+            "levels": {"minimum": 3, "maximum": 10},
+            "zones": [ZONE_WATCHTOWER],
+            "seasons": [SEASON_SPRING, SEASON_SUMMER, SEASON_AUTUMN, SEASON_WINTER],
+            "climates": [CLIMATE_TEMPERATE, CLIMATE_ALPINE, CLIMATE_DESERT, CLIMATE_TUNDRA, CLIMATE_TROPICAL, CLIMATE_POLAR],
+        },
+        {
+            "type": "evil watchtower",
+            "adjectives": ["haunted", "cursed", "evil", "demonic", "ghostly", "ghastly", "spectral", "spiritual", "supernatural", "undead", "unearthly", "vampiric", "zombie"],
+            "levels": {"minimum": 7, "maximum": 10},
+            "zones": [ZONE_WATCHTOWER],
+            "seasons": [SEASON_SPRING, SEASON_SUMMER, SEASON_AUTUMN, SEASON_WINTER],
+            "climates": [CLIMATE_TEMPERATE, CLIMATE_ALPINE, CLIMATE_DESERT, CLIMATE_TUNDRA, CLIMATE_TROPICAL, CLIMATE_POLAR],
+        },
+        {
+            "type": "populated watchtower populated",
+            "levels": {"minimum": 1, "maximum": 10},
+            "zones": [ZONE_WATCHTOWER],
+            "seasons": [SEASON_SPRING, SEASON_SUMMER, SEASON_AUTUMN, SEASON_WINTER],
+            "climates": [CLIMATE_TEMPERATE, CLIMATE_ALPINE, CLIMATE_DESERT, CLIMATE_TUNDRA, CLIMATE_TROPICAL, CLIMATE_POLAR],
+        },
+        # villages,
+        {
+            "type": "abandoned village",
+            "adjectives": ["abandoned, ruined, derelict, deserted, empty, forsaken, neglected, uninhabited, unoccupied, vacant"],
+            "levels": {"minimum": 1, "maximum": 10},
+            "zones": [ZONE_VILLAGE],
+            "seasons": [SEASON_SPRING, SEASON_SUMMER, SEASON_AUTUMN, SEASON_WINTER],
+            "climates": [CLIMATE_TEMPERATE, CLIMATE_ALPINE, CLIMATE_DESERT, CLIMATE_TUNDRA, CLIMATE_TROPICAL, CLIMATE_POLAR],
+        },
+        {
+            "type": "populated village",
+            "adjectives": ["populated", "inhabited", "occupied", "peopled", "settled", "tenanted"],
+            "levels": {"minimum": 1, "maximum": 10},
+            "zones": [ZONE_VILLAGE],
+            "seasons": [SEASON_SPRING, SEASON_SUMMER, SEASON_AUTUMN, SEASON_WINTER],
+            "climates": [CLIMATE_TEMPERATE, CLIMATE_ALPINE, CLIMATE_DESERT, CLIMATE_TUNDRA, CLIMATE_TROPICAL, CLIMATE_POLAR],
+        },
+        {
+            "type": "populated fishing village",
+            "adjectives": ["populated", "inhabited", "occupied", "peopled", "settled", "tenanted", "fishing"],
+            "levels": {"minimum": 1, "maximum": 10},
+            "zones": [ZONE_VILLAGE],
+            "seasons": [SEASON_SPRING, SEASON_SUMMER, SEASON_AUTUMN, SEASON_WINTER],
+            "climates": [CLIMATE_TEMPERATE, CLIMATE_ALPINE, CLIMATE_DESERT, CLIMATE_TUNDRA, CLIMATE_TROPICAL, CLIMATE_POLAR],
+        },
+        {
+            "type": "fortified village",
+            "adjectives": ["fortified"],
+            "levels": {"minimum": 1, "maximum": 10},
+            "zones": [ZONE_VILLAGE],
+            "seasons": [SEASON_SPRING, SEASON_SUMMER, SEASON_AUTUMN, SEASON_WINTER],
+            "climates": [CLIMATE_TEMPERATE, CLIMATE_ALPINE, CLIMATE_DESERT, CLIMATE_TUNDRA, CLIMATE_TROPICAL, CLIMATE_POLAR],
+        },
+        {
+            "type": "haunted village",
+            "adjectives": ["haunted", "ghostly", "ghastly", "spectral", "undead", "unearthly"],
+            "levels": {"minimum": 1, "maximum": 10},
+            "zones": [ZONE_VILLAGE],
+            "seasons": [SEASON_SPRING, SEASON_SUMMER, SEASON_AUTUMN, SEASON_WINTER],
+            "climates": [CLIMATE_TEMPERATE, CLIMATE_ALPINE, CLIMATE_DESERT, CLIMATE_TUNDRA, CLIMATE_TROPICAL, CLIMATE_POLAR],
+        },
 
-                       {
-                           "type": "desert oasis",
-                           "subtypes": ["dried", "occupied", "fortified"],
-                           "seasons": ["spring", "summer", "autumn", "winter"],
-                           "climates": ["temperate", "alpine", "desert"]
-                       },
-                       {
-                           "type": "mountainous",
-                           "subtypes": [],
-                           "seasons": ["spring", "summer", "autumn", "winter"],
-                           "climates": ["temperate", "alpine"]
-                       },
-                       {
-                           "type": "ruins",
-                           "seasons": ["spring", "summer", "autumn", "winter"],
-                           "climates": ["temperate", "desert", "tropical"]
-                       },
-                       {
-                           "type": "dungeon",
-                           "seasons": ["constant"],
-                           "climates": ["underground"],
-                           "locations": []
-                       },
-                       {"type": "underground caverns", "seasons": ["constant"], "climates": ["underground"]},
-                       {"type": "swampland", "seasons": ["spring", "summer", "autumn", "winter"], "climates": ["tropical", "temperate"]},
-                       {"type": "coastal", "seasons": ["spring", "summer", "autumn", "winter"], "climates": ["tropical", "temperate", "polar"]},
-                       {"type": "urban", "seasons": ["spring", "summer", "autumn", "winter"], "climates": ["temperate", "desert", "tropical", "polar"]},
-                       {"type": "arctic", "seasons": ["summer", "winter"], "climates": ["polar"]},
-                       {"type": "jungle", "seasons": ["spring", "summer", "autumn", "winter"], "climates": ["tropical"]},
-                   ] \
- \
-                   @ classmethod
+        # {
+        #     "type": "oasis",
+        #
+        #     "seasons": [SEASON_SPRING, SEASON_SUMMER, SEASON_AUTUMN, SEASON_WINTER],
+        #     "climates": [CLIMATE_ALPINE, CLIMATE_DESERT]
+        # },
+        # {
+        #     "type": "mountainous",
+        #     "subtypes": [],
+        #     "seasons": [SEASON_SPRING, SEASON_SUMMER, SEASON_AUTUMN, SEASON_WINTER],
+        #     "climates": [CLIMATE_TEMPERATE, CLIMATE_ALPINE]
+        # },
+        # {
+        #     "type": "ruins",
+        #     "seasons": [SEASON_SPRING, SEASON_SUMMER, SEASON_AUTUMN, SEASON_WINTER],
+        #     "climates": [CLIMATE_TEMPERATE, CLIMATE_DESERT, CLIMATE_TROPICAL, CLIMATE_ALPINE, CLIMATE_POLAR]
+        # },
+        # {
+        #     "type": "dungeon",
+        #     "seasons": [SEASON_CONSTANT],
+        #     "climates": [CLIMATE_SUBTERRANEAN],
+        #     "locations": []
+        # },
+        # {"type": "underground caverns", "seasons": [SEASON_CONSTANT], "climates": [CLIMATE_SUBTERRANEAN]},
+        # {"type": "swampland", "seasons": ["spring", "summer", "autumn", "winter"], "climates": [CLIMATE_TROPICAL, CLIMATE_TEMPERATE]},
+        # {"type": "coastal", "seasons": ["spring", "summer", "autumn", "winter"], "climates": [CLIMATE_TROPICAL, CLIMATE_TEMPERATE, CLIMATE_POLAR]},
+        # {"type": "urban", "seasons": ["spring", "summer", "autumn", "winter"], "climates": [CLIMATE_TEMPERATE, CLIMATE_DESERT, CLIMATE_TROPICAL, CLIMATE_POLAR]},
+        # {"type": "arctic", "seasons": [SEASON_SUMMER, SEASON_WINTER], "climates": [CLIMATE_POLAR]},
+        # {"type": "jungle", "seasons": [SEASON_SPRING, SEASON_SUMMER, SEASON_AUTUMN, SEASON_WINTER], "climates": [CLIMATE_TROPICAL]},
+    ]
+
+    @classmethod
+    def generate_random_environment(cls):
+        environment_type = random.choice(cls.environments)
+        season = random.choice(environment_type["seasons"])
+        climate = random.choice(environment_type["climates"])
+        environment = EmptyStructures.get_environment_structure()
+        environment['type'] = environment_type['type']
+        environment['climate']['type'] = climate
+        environment['climate']['season'] = season
+
+        return environment
+
+    @classmethod
+    def verify_locations(cls, locations, encounter_types, valid_adjectives):
+        descriptors = []
+        for location in locations:
+            # Check if all required fields are in each location
+            if not all(k in location for k in ("descriptor", "adjectives", "encounters")):
+                missing_keys = [k for k in ("descriptor", "adjectives", "encounters") if k not in location]
+                raise ValueError(f"Location {location} is missing keys: {missing_keys}")
+
+            # Check if the descriptor is unique
+            if location['descriptor'] in descriptors:
+                raise ValueError(f"Descriptor '{location['descriptor']}' is not unique.")
+            descriptors.append(location['descriptor'])
+
+            # Check if there's at least one adjective and no duplicate adjectives
+            if not location['adjectives'] or len(location['adjectives']) != len(set(location['adjectives'])):
+                if not location['adjectives']:
+                    raise ValueError(f"Location {location['descriptor']} does not contain any adjectives.")
+                else:
+                    raise ValueError(f"Location {location['descriptor']} contains duplicate adjectives.")
+
+            # Check if the adjectives are in the valid_adjectives list
+            invalid_adjectives = set(location['adjectives']) - set(valid_adjectives)
+            if invalid_adjectives:
+                raise ValueError(f"Location {location['descriptor']} contains invalid adjectives: {invalid_adjectives}")
+
+            # Check if there's at least one encounter
+            if not location['encounters']:
+                raise ValueError(f"Location {location['descriptor']} does not contain any encounters.")
+
+            # Check if all encounters are valid and there are no duplicates
+            invalid_encounters = set(location['encounters']) - set(encounter_types)
+            duplicate_encounters = len(location['encounters']) != len(set(location['encounters']))
+            if invalid_encounters:
+                raise ValueError(f"Location {location['descriptor']} contains invalid encounters: {invalid_encounters}")
+            elif duplicate_encounters:
+                raise ValueError(f"Location {location['descriptor']} contains duplicate encounters.")
+
+        return True
+
+    @classmethod
+    def verify_zones(cls, zones, locations):
+        location_descriptors = {location['descriptor'] for location in locations}
+        for zone in zones:
+            print(f"Checking zone {zone}")
+            # Check if 'zone' key is present and is a string
+            if 'zone' not in zone or not isinstance(zone['zone'], str):
+                raise ValueError(f"Zone entry {zone} does not contain a 'zone' key or the key is not a string.")
+
+            cls.verify_locations_to_use(zone)
+            cls.verify_locations_list(location_descriptors, zone)
+
+        return True
+
+    @classmethod
+    def verify_locations_list(cls, location_descriptors, zone):
+        # Check 'locations' key exists, is a list, and has at least one entry
+        if 'locations' not in zone or not isinstance(zone['locations'], list) or not zone['locations']:
+            raise ValueError(f"Zone {zone['zone']} does not contain a 'locations' key, or the key is not a list, or the list is empty.")
+        # Check all items in 'locations' list exist in location_descriptors and there are no duplicates
+        for location in zone['locations']:
+            if location['descriptor'] not in location_descriptors:
+                raise ValueError(f"Zone {zone['zone']} contains invalid location: {location['descriptor']}")
+        print([location['descriptor'] for location in zone['locations']])
+        print(len(zone['locations']))
+        if len(zone['locations']) != len(set([location['descriptor'] for location in zone['locations']])):
+            from collections import Counter
+            location_counts = Counter(zone['locations'])
+            duplicates = [k for k, v in location_counts.items() if v > 1]
+            raise ValueError(f"Zone {zone['zone']} contains duplicate locations: {duplicates}")
+
+    @classmethod
+    def verify_locations_to_use(cls, zone):
+        # Check 'locations_to_use' key exists, is a dictionary, and has 'minimum' and 'maximum' keys
+        if 'locations_to_use' not in zone or not isinstance(zone['locations_to_use'], dict):
+            raise ValueError(f"Zone {zone['zone']} does not contain a 'locations_to_use' key or the key is not a dictionary.")
+        if 'minimum' not in zone['locations_to_use'] or 'maximum' not in zone['locations_to_use']:
+            raise ValueError(f"Zone {zone['zone']} does not contain 'minimum' and 'maximum' keys in 'locations_to_use'.")
+        # Check 'minimum' and 'maximum' values are numeric and minimum is less than maximum
+        if not isinstance(zone['locations_to_use']['minimum'], (int, float)) or not isinstance(zone['locations_to_use']['maximum'], (int, float)):
+            raise ValueError(f"Zone {zone['zone']} has non-numeric 'minimum' or 'maximum' values in 'locations_to_use'.")
+        if zone['locations_to_use']['minimum'] >= zone['locations_to_use']['maximum']:
+            raise ValueError(f"Zone {zone['zone']} has 'minimum' value greater than or equal to 'maximum' in 'locations_to_use'.")
+
+    @classmethod
+    def verify_seasons(cls, seasons):
+        if not isinstance(seasons, list) or not seasons:
+            raise ValueError("The 'seasons' key must exist and it must be a non-empty list.")
+        if len(seasons) != len(set(seasons)):
+            from collections import Counter
+            season_counts = Counter(seasons)
+            duplicates = [k for k, v in season_counts.items() if v > 1]
+            raise ValueError(f"'seasons' contains duplicate seasons: {duplicates}")
+        if not set(seasons).issubset(SEASON_TYPES):
+            invalid_seasons = set(seasons) - set(SEASON_TYPES)
+            raise ValueError(f"'seasons' contains invalid seasons: {invalid_seasons}")
+        return True
+
+    @classmethod
+    def verify_climates(cls, climates):
+        if not isinstance(climates, list) or not climates:
+            raise ValueError("The 'climates' key must exist and it must be a non-empty list.")
+        if len(climates) != len(set(climates)):
+            from collections import Counter
+            climate_counts = Counter(climates)
+            duplicates = [k for k, v in climate_counts.items() if v > 1]
+            raise ValueError(f"'climates' contains duplicate climates: {duplicates}")
+        if not set(climates).issubset(CLIMATE_TYPES):
+            invalid_climates = set(climates) - set(CLIMATE_TYPES)
+            raise ValueError(f"'climates' contains invalid climates: {invalid_climates}")
+        return True
+
+    @classmethod
+    def validate_data(cls):
+        cls.check_for_duplicates(cls.adjectives)
+        cls.verify_environments(cls.environments, cls.zones)
+        cls.verify_zones(cls.zones, cls.locations)
+        cls.verify_locations(cls.locations, ENCOUNTER_TYPES, cls.adjectives)
+
+    @classmethod
+    def check_for_duplicates(cls, adjectives):
+        # Converting the list to a set will remove any duplicates because sets cannot contain duplicate values
+        # If the length of the set is less than the length of the list, that means there were duplicates
+        if len(set(adjectives)) < len(adjectives):
+            # Creating a dictionary with counts of each adjective
+            from collections import Counter
+            adj_counts = Counter(adjectives)
+
+            # Find the adjectives where count is more than 1, those are our duplicates
+            duplicates = [k for k, v in adj_counts.items() if v > 1]
+            raise ValueError(f"The following adjectives are duplicated: {duplicates}")
+
+    @classmethod
+    def verify_environments(cls, environments, zones):
+        for env in environments:
+            # Verify 'type' key
+            if 'type' not in env or not isinstance(env['type'], str) or not env['type']:
+                raise ValueError("Each environment must have a 'type' key, it must be a string, and it cannot be empty.")
+            print(env['type'])
+
+            # Verify 'zones' key
+            if 'zones' not in env or not isinstance(env['zones'], list) or not env['zones']:
+                raise ValueError("Each environment must have a 'zones' key, it must be a list, and it cannot be empty.")
+
+            env_zone_names = [zone['zone'] for zone in env['zones']]
+            valid_zone_names = [zone['zone'] for zone in zones]
+
+            if not set(env_zone_names).issubset(valid_zone_names):
+                invalid_zones = set(env_zone_names) - set(valid_zone_names)
+                raise ValueError(f"'zones' contains invalid zones: {invalid_zones}")
+
+            if len(env_zone_names) != len(set(env_zone_names)):
+                from collections import Counter
+                zone_counts = Counter(env_zone_names)
+                duplicates = [k for k, v in zone_counts.items() if v > 1]
+                raise ValueError(f"'zones' contains duplicate zones: {duplicates}")
+
+            cls.verify_seasons(env.get('seasons', []))
+            cls.verify_climates(env.get('climates', []))
+
+        return True
 
 
-def generate_random_environment(cls):
-    environment_type = random.choice(cls.environments)
-    season = random.choice(environment_type["seasons"])
-    climate = random.choice(environment_type["climates"])
-    environment = EmptyStructures.get_environment_structure()
-    environment['type'] = environment_type['type']
-    environment['climate']['type'] = climate
-    environment['climate']['season'] = season
+    # TODO create a list of environments that cover the specified level of the party
+    # TODO pick a random environment from that list
+    # TODO pick the season and climate that the environment supports
+    # TODO decide on how manyy zones we will use and limit it to the number of zones in the environment
+    # TODO select a random set of zones
+    # TODO decide how many locations will be in each zone, this is zone specific, different zones will have a different number of locations
+    # TODO select a random set of locations from the zone
+    # TODO set the adjectives for the zone
+    # TODO select a random encounter type for each location
+    # TODO select the adjectives for the location
+    # TODO select the nouns for the location
+    # TODO build the graph for the environment
+    # TODO set all of the connections for each location from the graph
+    # TODO send the entire map to the GPT4 model to generate the descriptions for each location
+    # TODO generate npcs for each skirmish & boss fight encounter
+    # TODO generate loot for each skirmish & boss fight encounter
+    # TODO generate the puzzles for each puzzle encounter
+    # TODO generate the traps for each trap encounter
+    # TODO generate the treasure for each puzzle encounter
+    # TODO generate traps for each puzzle encounter
+    # TODO generate the social encounters for each social encounter
+    # TODO generate the main quest
+    # TODO generate the side quest
+    # TODO generate the npcs for the main quest
+    # TODO generate the npcs for the side quest
+    # TODO generate the loot for the main quest
+    # TODO generate the loot for the side quest
+    # TODO generate how each hazard encounter will manifest itself
+    # TODO generate how each exploration encounter will manifest itself
 
-    return environment
-
-
-@classmethod
-def verify_locations(cls, locations, encounter_types):
-    descriptors = []
-    for location in locations:
-        # Check if all required fields are in each location
-        if not all(k in location for k in ("descriptor", "adjectives", "encounters")):
-            return False
-
-        # Check if the descriptor is unique
-        if location['descriptor'] in descriptors:
-            return False
-        descriptors.append(location['descriptor'])
-
-        # Check if there's at least one adjective and no duplicate adjectives
-        if not location['adjectives'] or len(location['adjectives']) != len(set(location['adjectives'])):
-            return False
-
-        # Check if there's at least one encounter
-        if not location['encounters']:
-            return False
-
-        # Check if all encounters are valid and there are no duplicates
-        if not set(location['encounters']).issubset(encounter_types) or len(location['encounters']) != len(set(location['encounters'])):
-            return False
-
-    # If all checks pass
-    return True
+EnvironmentGenerator.validate_data()
