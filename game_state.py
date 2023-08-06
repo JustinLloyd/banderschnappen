@@ -4,7 +4,8 @@ import os
 from actions import Actions
 from historical_summary import HistoricalSummary
 from npcs import NPCs
-from player_type import Players
+from party_type import Party
+
 from scenario import Scenario
 
 
@@ -27,7 +28,7 @@ class GameState:
     @classmethod
     def load_state(cls):
         cls._non_player_characters = NPCs()
-        cls._players = Players()
+        cls._party = Party()
         cls._scenario = Scenario()
         cls._performed_actions = Actions()
         cls._historical_info = HistoricalSummary()

@@ -3,7 +3,8 @@ import json
 from chat_gpt import ChatGPT
 from empty_structures import EmptyStructures
 from game_rules import GameRules
-from player_type import Players
+from party_type import Party
+
 from scenario import Scenario
 from utilities import load_state_data, save_state_data
 
@@ -35,7 +36,7 @@ class NPCs:
         # dm.add_system_message(GameRules.get_global_prompt())
         dm.add_system_message(f'Generate the NPC for the {location_id} location')
         dm.add_system_message(GameRules.get_adversarial_npc_generation_prompt())
-        dm.add_system_message(f'Players: """\n{Players.get_players_without_descriptions()}"""\n\n')
+        dm.add_system_message(f'Players: """\n{Party.get_players_without_descriptions()}"""\n\n')
         dm.add_system_message(f'Scenario: """\n{Scenario.get_scenario_prompt()}"""\n\n')
         dm.add_system_message(f'Empty NPC Structure: """\n{EmptyStructures.get_npc_structure()}"""\n')
 

@@ -9,11 +9,13 @@ from game_state import GameState
 from gem_generator import GemGenerator
 from historical_summary import HistoricalSummary
 from npcs import NPCs
-from players import Players
+
 from scenario import Scenario
 from treasure_vessel_generator import TreasureVesselGenerator
 from utilities import make_prompt
+from world_types import GameWorld
 
+world = None
 
 def perform_player_action(performer, message):
     Actions.perform_action(performer, message)
@@ -45,7 +47,9 @@ def generate_scenario():
 
 
 def test_function():
-    Scenario.generate_scenario()
+    global world
+    world = GameWorld.generate_random_world()
+    # Scenario.generate_scenario()
     # dm = ChatGPT()
     #
     # prompt=Scenario.generate_scenario()
@@ -85,4 +89,3 @@ if __name__ == '__main__':
     # for historical_entry in historical:
     #     print(historical_entry['summary'])
     repl()
-    pass

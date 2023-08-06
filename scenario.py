@@ -7,7 +7,8 @@ from die_generator import DieGenerator
 from difficulty import Difficulty
 from empty_structures import EmptyStructures
 from game_rules import GameRules
-from player_type import Players
+from party_type import Party
+
 from thinking_generator import ThinkingGenerator
 from treasure_generator import TreasureGenerator
 from treasure_trap_generator import TreasureTrapGenerator
@@ -67,9 +68,9 @@ class Scenario:
     def generate_scenario(cls):
         cls._scenario = EmptyStructures.get_scenario_structure()
 
-        cls._scenario['level'] = max(Players.get_players(), key=lambda player: player['level'])['level']
+        cls._scenario['level'] = max(Party.players, key=lambda player: player['level'])['level']
 
-        cls._scenario['party_size'] = len(Players.get_players())
+        cls._scenario['party_size'] = len(Party.players)
         cls.__0010_generate_scenario_describe_weather()
         cls.__0020_generate_scenario_describe_environment()
         cls.__0030_generate_scenario_describe_quest()

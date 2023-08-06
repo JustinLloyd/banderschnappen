@@ -1,7 +1,7 @@
 import copy
 import random
 
-from location_types import LocationData
+from location_types import LocationData, Location
 
 
 class ZoneData:
@@ -55,24 +55,30 @@ class ZoneData:
 class Zone:
     def __init__(self, data=None):
         self.name = data.name
-        self.adjectives = copy.deepcopy(data.adjectives)
-        self.locations = copy.deepcopy(data.locations)
+        self.possible_adjectives = copy.deepcopy(data.adjectives)
+        self.possible_locations = copy.deepcopy(data.locations)
         self.minimum_locations_to_use = data.minimum_locations_to_use
         self.maximum_locations_to_use = data.maximum_locations_to_use
         self.depth = 0
+        self.locations = []
+        self.adjectives = None
 
     def randomize_zone(self):
         self.select_random_adjectives()
         self.select_random_locations()
 
     def select_random_adjectives(self):
-        self.adjectives = random.sample(self.adjectives, 2)
+        if self.possible_adjectives:
+            self.adjectives = random.sample(self.possible_adjectives, min(2, len(self.possible_adjectives)))
 
     def select_random_locations(self):
         number_of_locations = random.randint(self.minimum_locations_to_use, self.maximum_locations_to_use)
-        selected_locations = random.sample(self.locations, number_of_locations)
-        for location in selected_locations:
+        selected_locations = random.sample(self.possible_locations, number_of_locations)
+        for location_data in selected_locations:
+            location = Location(location_data)
+            location.depth = random.randint(1, len(selected_locations))
             location.randomize_location()
+            self.locations.append(location)
 
     def __str__(self):
         return f"{self.name} (depth {self.depth})"

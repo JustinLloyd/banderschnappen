@@ -11,13 +11,13 @@ class EmptyStructures:
         EmptyStructures._npc = load_prompt("npc-structure")
 
     # TODO this function doesn't belong here, it needs to move
-    @classmethod
-    def get_npc_structure_prompt(cls):
-        return make_prompt(cls._npc)
-
-    @classmethod
-    def get_npc_structure(cls):
-        return copy.deepcopy(cls._npc)
+    # @classmethod
+    # def get_npc_structure_prompt(cls):
+    #     return make_prompt(cls._npc)
+    #
+    # @classmethod
+    # def get_npc_structure(cls):
+    #     return copy.deepcopy(cls._npc)
 
     @classmethod
     def get_player_structure(cls):
@@ -45,21 +45,21 @@ class EmptyStructures:
     __empty_rest_encounter = {}
     __empty_hazard_encounter = {}
 
-    __empty_connection = {
-        "connects_to": "",
-        "direction": "",
-        "navigation": ""
-    }
+    # __empty_connection = {
+    #     "connects_to": "",
+    #     "direction": "",
+    #     "navigation": ""
+    # }
 
-    __empty_location = {
-        "id": "",
-        "name": "",
-        "encounter": {},
-        "full_description": "",
-        "brief_description": "",
-        "noteworthy": "",
-        "connections": []
-    }
+    # __empty_location = {
+    #     "id": "",
+    #     "name": "",
+    #     "encounter": {},
+    #     "full_description": "",
+    #     "brief_description": "",
+    #     "noteworthy": "",
+    #     "connections": []
+    # }
 
     __empty_puzzle_encounter = {
         ""
@@ -84,17 +84,17 @@ class EmptyStructures:
         "difficulty_level": "",
         "details": {}  # attach a puzzle structure or a skirmish structure or a hazard structure or a boss fight structure
     }
-
-    __empty_environment = {
-        "type": "",
-        "name": "",
-        "description": "",
-        "climate": {
-            "type": "",
-            "season": "",
-            "weather": ""
-        },  # replace with the climate structure
-    }
+    #
+    # __empty_environment = {
+    #     "type": "",
+    #     "name": "",
+    #     "description": "",
+    #     "climate": {
+    #         "type": "",
+    #         "season": "",
+    #         "weather": ""
+    #     },  # replace with the climate structure
+    # }
 
     __empty_scenario = {
         "title": "",
@@ -299,14 +299,6 @@ class EmptyStructures:
     @classmethod
     def get_scenario_structure(cls):
         return copy.deepcopy(cls.__empty_scenario)
-
-    @classmethod
-    def get_environment_structure(cls):
-        return copy.deepcopy(cls.__empty_environment)
-
-    @classmethod
-    def get_location_structure(cls):
-        return copy.deepcopy(cls.__empty_location)
 
     @classmethod
     def get_encounter_structure(cls):

@@ -72,8 +72,8 @@ class Location:
         self.possible_adjectives = copy.deepcopy(data.adjectives)
         self.possible_encounters = copy.deepcopy(data.encounters)
         self.encounter = None
-        self.nouns = None
-        self.adjectives = None
+        self.nouns = []
+        self.adjectives = []
         self.depth = 0
         self.zone = None
         self.connections: [Connection] = []
@@ -82,6 +82,8 @@ class Location:
         self.connections.append(location)
 
     def select_random_nouns(self):
+        if not self.possible_nouns:
+            return
         self.nouns = random.sample(self.possible_nouns, random.randint(0, min(1, len(self.possible_nouns))))
 
     def select_random_adjectives(self):

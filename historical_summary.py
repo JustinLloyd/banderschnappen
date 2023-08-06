@@ -3,7 +3,8 @@ import json
 from actions import Actions
 from chat_gpt import ChatGPT
 from game_rules import GameRules
-from player_type import Players
+from party_type import Party
+
 from utilities import load_state_data, save_state_data, make_prompt
 
 
@@ -24,7 +25,7 @@ class HistoricalSummary:
         dm = ChatGPT()
         dm.add_system_message(GameRules.get_summarize_actions_prompt())
         message = '\n\nPlayers: """ \n'
-        message += make_prompt(Players.get_players_without_descriptions(), "players")
+        message += make_prompt(Party.get_players_without_descriptions(), "players")
         message += '\n"""\n\n'
         message = 'Previous Actions: """ \n'
         message += make_prompt(Actions.get_actions(), "actions")
