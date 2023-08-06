@@ -4,7 +4,7 @@ import os
 from actions import Actions
 from historical_summary import HistoricalSummary
 from npcs import NPCs
-from players import Players
+from player_type import Players
 from scenario import Scenario
 
 

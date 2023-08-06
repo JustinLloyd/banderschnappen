@@ -6,13 +6,7 @@ from utilities import load_state_data, save_state_data
 
 
 class Actions:
-    _instance = None
     _actions = []
-
-    def __new__(cls, *args, **kwargs):
-        if not cls._instance:
-            cls._instance = super(Actions, cls).__new__(cls, *args, **kwargs)
-        return cls._instance
 
     def __init__(self):
         self.load_state()
@@ -31,15 +25,14 @@ class Actions:
 
     @classmethod
     def perform_action(cls, performer, message):
-        cls._actions.append({"role": "user", f"performer": "{performer}", f"message": "{message}"})
-        data = []
+        cls._actions.append({"role": "user", "performer": performer, "message": message})
         # build up the rules that the llm will operate under
         dm = ChatGPT()
         dm.add_system_message(GameRules.get_global_rules_prompt())
 
-        # build the player character state for the llm
-        # build up the environment that makes the world for the llm
-        # build up the actions that the players' have performed so far that the llm can use as past history
+        # TODO build the player character state for the llm
+        # TODO build up the environment that makes the world for the llm
+        # TODO build up the actions that the players' have performed so far that the llm can use as past history
         for action in cls._actions:
             if 'recipient' in action:
 
@@ -50,6 +43,8 @@ class Actions:
                 dm.add_user_message(f"{packed_content}")
             else:
                 raise Exception(f"Performer or recipient key not found in {action}")
-        # data = {"rules": rules, "environment": environment, "historical": historical, "actions": actions}
-        # jsondata = json.dumps(data)
-        print(data)
+        # TODO bring this up to spec on the modern way of invoking the chatgpt api through our chatgpt module
+        dm.invoke_warm_4k()
+        content = dm.get_content()
+        print(type(content))
+        print(content)

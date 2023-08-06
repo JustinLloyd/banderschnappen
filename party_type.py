@@ -1,133 +1,32 @@
-import copy
-import json
 import random
 
-from chat_gpt import ChatGPT
+from constants import XP_LEVEL_THRESHOLDS, HIT_DICE_BY_CLASS_DB, RACE_AGE_DB, ABILITY_CONSTITUTION_KEY, ABILITIES_DB
 from die_generator import DieGenerator
-from empty_structures import EmptyStructures
-from utilities import strip_descriptions, load_state_data, save_state_data, make_prompt
+from player_type import Player
+from utilities import load_state_data, save_state_data
 
 
-class Players:
-    # A simple mapping of classes to their primary and secondary abilities.
-    CLASS_ABILITIES = {
-        "barbarian": ["strength", "constitution"],
-        "bard": ["charisma", "dexterity"],
-        "cleric": ["wisdom", "constitution"],
-        "druid": ["wisdom", "constitution"],
-        "fighter": ["strength", "constitution"],
-        "monk": ["dexterity", "wisdom"],
-        "paladin": ["strength", "charisma"],
-        "ranger": ["dexterity", "wisdom"],
-        "rogue": ["dexterity", "intelligence"],
-        "sorcerer": ["charisma", "constitution"],
-        "warlock": ["charisma", "constitution"],
-        "wizard": ["intelligence", "constitution"]
-    }
-
-    RACE_ABILITY_BONUSES = {
-        "dwarf": {"constitution": 2},
-        "elf": {"dexterity": 2},
-        "halfling": {"dexterity": 2},
-        "human": {"strength": 1, "dexterity": 1, "constitution": 1, "intelligence": 1, "wisdom": 1, "charisma": 1},
-        "dragonborn": {"strength": 2, "charisma": 1},
-        "gnome": {"intelligence": 2},
-        "half-elf": {"strength": 1, "dexterity": 1, "constitution": 1, "intelligence": 1, "wisdom": 1, "charisma": 2},
-        "half-orc": {"strength": 2, "constitution": 1},
-        "tiefling": {"intelligence": 1, "charisma": 2},
-    }
-    HIT_DICE_BY_CLASS = {
-        "barbarian": 12,
-        "bard": 8,
-        "cleric": 8,
-        "druid": 8,
-        "fighter": 10,
-        "monk": 8,
-        "paladin": 10,
-        "ranger": 10,
-        "rogue": 8,
-        "sorcerer": 6,
-        "warlock": 8,
-        "wizard": 6
-    }
-
-    XP_LEVEL_THRESHOLDS = [
-        0,  # Level 1
-        300,  # Level 2
-        900,  # Level 3
-        2700,  # Level 4
-        6500,  # Level 5
-        14000,  # Level 6
-        23000,  # Level 7
-        34000,  # Level 8
-        48000,  # Level 9
-        64000,  # Level 10
-        85000,  # Level 11
-        100000,  # Level 12
-        120000,  # Level 13
-        140000,  # Level 14
-        165000,  # Level 15
-        195000,  # Level 16
-        225000,  # Level 17
-        265000,  # Level 18
-        305000,  # Level 19
-        355000  # Level 20
-    ]
-    _instance = None
-    _players = []
-
-    def __new__(cls, *args, **kwargs):
-        if not cls._instance:
-            cls._instance = super(Players, cls).__new__(cls, *args, **kwargs)
-        return cls._instance
-
+class Party:
     def __init__(self):
+        self.players: [Player] = []
         self.load_state()
 
-    @classmethod
-    def load_state(cls):
-        cls._players = load_state_data('players')
+    def load_state(self):
+        self.players = load_state_data('players')
+
+    def save_state(self):
+        save_state_data('players', self.players)
+
+    def get_players_without_descriptions(self):
+        return [player.stripped_down() for player in self.players]
 
     @classmethod
-    def save_state(cls):
-        save_state_data('players', cls._players)
-
-    @classmethod
-    def get_players_without_descriptions(cls):
-        stripped_players = []
-        for player in cls._players:
-            stripped_player = strip_descriptions(player)
-            if 'companion' in stripped_player:
-                stripped_player['companion'] = strip_descriptions(stripped_player['companion'])
-            stripped_players.append(stripped_player)
-        return stripped_players
-
-    @classmethod
-    def get_players(cls):
-        return cls._players
-
-    @classmethod
-    def generate_initial_age(cls, player):
-        race = player['race'].lower()
-
-        # Define a lookup dictionary for base_age and age_variation for each race
-        race_age_data = {
-            'human': {'base_age': 15, 'age_variation': 20},
-            'elf': {'base_age': 100, 'age_variation': 100},
-            'dwarf': {'base_age': 50, 'age_variation': 50},
-            'halfling': {'base_age': 20, 'age_variation': 30},
-            'gnome': {'base_age': 40, 'age_variation': 70},
-            'dragonborn': {'base_age': 15, 'age_variation': 10},
-            'orc': {'base_age': 12, 'age_variation': 10},
-            'half-orc': {'base_age': 14, 'age_variation': 30},
-            'half-elf': {'base_age': 20, 'age_variation': 80},
-            'tiefling': {'base_age': 15, 'age_variation': 30},
-            # add more races as needed...
-        }
+    def generate_initial_age(cls, race:str):
+        race = race.lower()
 
         # Fetch the base_age and age_variation based on the character's race
-        base_age = race_age_data.get(race, {}).get('base_age', 15)  # default to human age if race not found
-        age_variation = race_age_data.get(race, {}).get('age_variation', 20)  # default to human age variation if race not found
+        base_age = RACE_AGE_DB.get(race, {}).get('base_age', 15)  # default to human age if race not found
+        age_variation = RACE_AGE_DB.get(race, {}).get('age_variation', 20)  # default to human age variation if race not found
 
         # Calculate the final age
         age = base_age + random.randint(0, age_variation)
@@ -135,9 +34,9 @@ class Players:
         return age
 
     @classmethod
-    def generate_initial_hp(cls, class_name, constitution_modifier):
-        base_hp = cls.HIT_DICE_BY_CLASS.get(class_name.lower(), 8)
-        total_hp = base_hp + constitution_modifier
+    def generate_initial_hp(cls, class_name, constitution:int):
+        base_hp = HIT_DICE_BY_CLASS_DB.get(class_name.lower(), 8)
+        total_hp = base_hp + cls.get_modifier_for(ABILITY_CONSTITUTION_KEY,constitution)
         return total_hp
 
     @classmethod
@@ -162,7 +61,7 @@ class Players:
         return (ability_score - 10) // 2
 
     @staticmethod
-    def get_starting_equipment(character_class):
+    def get_starting_equipment(cls,character_class):
         starter_packages = {
             'barbarian': ['GreatAxe', 'Two Handaxes', 'Explorer\'s Pack', 'Four Javelins'],
             'bard': ['Rapier', 'Diplomat\'s Pack', 'Lute', 'Leather Armor', 'Dagger'],
@@ -207,7 +106,7 @@ class Players:
 
     @classmethod
     def generate_player_character(cls):
-        player = EmptyStructures.get_player_structure()
+        player = Player()
         player['player'] = cls.generate_player_name()  # Assuming there's a generate_player_name method
         player['location'] = ""
         player['level'] = 1
@@ -250,33 +149,9 @@ class Players:
         return random.choice(genders)
 
     @classmethod
-    def roll_4d6_drop_lowest(cls):
-        rolls = DieGenerator.roll_d6(num=4)
-        return sorted(rolls)[1:]
-
-    @classmethod
     def generate_ability_scores(cls):
-        abilities = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma']
-        return {ability: cls.roll_4d6_drop_lowest() for ability in abilities}
+        return {ability: DieGenerator.roll_drop_lowest_total(6,4) for ability in ABILITIES_DB}
 
-    @classmethod
-    def get_playable_races(cls):
-        return ["Human", "Dwarf", "Elf", "Halfling", "Dragonborn", "Gnome", "Half-Elf", "Half-Orc", "Tiefling"]
-
-    @classmethod
-    def get_playable_classes(cls):
-        return ["Barbarian",
-                "Bard",
-                "Cleric",
-                "Druid",
-                "Fighter",
-                "Monk",
-                "Paladin",
-                "Ranger",
-                "Rogue",
-                "Sorcerer",
-                "Warlock",
-                "Wizard"]
 
     @classmethod
     def get_playable_alignments(cls):
@@ -292,23 +167,35 @@ class Players:
         return alignments
 
     @classmethod
-    def get_level(cls, experience_points):
-        for i in range(len(cls.XP_LEVEL_THRESHOLDS)):
-            if experience_points < cls.XP_LEVEL_THRESHOLDS[i]:
+    def convert_level_to_xp(cls, level):
+        return XP_LEVEL_THRESHOLDS[level]
+
+    @classmethod
+    def convert_xp_to_level(cls, xp):
+        for i in range(len(XP_LEVEL_THRESHOLDS)):
+            if xp < XP_LEVEL_THRESHOLDS[i]:
                 return i
-        return 20  # If experience points exceed the level 20 threshold
+        return 20
 
     @classmethod
     def get_experience_for_next_level(cls, current_level):
         if current_level <= 0 or current_level >= 20:
             return "Invalid level. Please enter a level between 1 and 19."
         else:
-            return cls.XP_LEVEL_THRESHOLDS[current_level]
+            return XP_LEVEL_THRESHOLDS[current_level]
 
     @classmethod
-    def get_players_prompt(cls):
-        return make_prompt(cls._players,"players")
+    def calculate_xp_to_next_level(cls, current_xp):
+        current_level = cls.convert_xp_to_level(current_xp)
+        return XP_LEVEL_THRESHOLDS[current_level] - current_xp
+
+    # @classmethod
+    # def get_players_prompt(cls):
+    #     return make_prompt(cls._players, "players")
+    #
+    def get_party_composition_as_string(self):
+        return f"There are {len(self.players)} players in the party, " + " and ".join([f'a level {player["level"]} {player["race"]} {player["class"]["name"]} named {player["name"]}' for player in self.players]) + ".\n"
 
     @classmethod
-    def get_party_composition_as_string(cls):
-        return f"There are {len(cls._players)} players in the party, " + " and ".join([f'a level {player["level"]} {player["race"]} {player["class"]["name"]} named {player["name"]}' for player in cls._players]) + ".\n"
+    def get_modifier_for(cls, ability_score):
+        return (ability_score-10)//2

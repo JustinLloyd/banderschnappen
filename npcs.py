@@ -3,7 +3,7 @@ import json
 from chat_gpt import ChatGPT
 from empty_structures import EmptyStructures
 from game_rules import GameRules
-from players import Players
+from player_type import Players
 from scenario import Scenario
 from utilities import load_state_data, save_state_data
 
@@ -39,7 +39,7 @@ class NPCs:
         dm.add_system_message(f'Scenario: """\n{Scenario.get_scenario_prompt()}"""\n\n')
         dm.add_system_message(f'Empty NPC Structure: """\n{EmptyStructures.get_npc_structure()}"""\n')
 
-        response = dm.invoke_gpt_16k()
+        response = dm.invoke_16k()
         content = dm.get_content()
         npc = json.loads(content)
         NPCs.remember_new_npc(npc)

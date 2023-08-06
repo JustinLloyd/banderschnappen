@@ -3,7 +3,7 @@ import json
 from actions import Actions
 from chat_gpt import ChatGPT
 from game_rules import GameRules
-from players import Players
+from player_type import Players
 from utilities import load_state_data, save_state_data, make_prompt
 
 
@@ -31,7 +31,7 @@ class HistoricalSummary:
         message += '"""'
         dm.add_system_message(message)
 
-        dm.invoke_gpt_16k()
+        dm.invoke_16k()
         content = dm.get_content()
         print(type(content))
         print(content)
