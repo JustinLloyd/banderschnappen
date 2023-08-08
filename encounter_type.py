@@ -17,17 +17,42 @@ class EncounterData:
         if self.challenge_rating < 1 or self.challenge_rating > 5:
             raise ValueError(f"Encounter {self.name} must have a challenge rating between 1 and 5, inclusive.")
 
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "description": self.description,
+            "challenge_rating": self.challenge_rating
+        }
+
+
 class Encounter:
-    def __init__(self, data:EncounterData = None):
+    def __init__(self, data: EncounterData = None):
         self.name = data.name if data else ''
         self.description = data.description if data else ''
         self.difficulty_level = data.challenge_rating if data else 1
         self.details = ''
 
+    def to_dict(self) -> dict:
+        return {
+            "name": self.name,
+            "description": self.description,
+            "difficulty_level": self.difficulty_level,
+            "details": self.details
+        }
+
+
 class SkirmishEncounter(Encounter):
-    def __init__(self, data:EncounterData = None):
+    def __init__(self, data: EncounterData = None):
         super().__init__(data)
-        self.npcs= []
+        self.npcs = []
+
+    def to_dict(self) -> dict:
+        encounter_dict = {
+            "npcs": self.npcs
+        }
+        encounter_dict.update(super().to_dict())
+        return encounter_dict
+
 
 class PuzzleStage:
     def __init__(self, description: str = None, clues: [str] = None, solution_verification: str = None):
@@ -35,21 +60,28 @@ class PuzzleStage:
         self.clues = clues
         self.solution_verification = solution_verification
 
+    def to_dict(self):
+        return {
+            "description": self.description,
+            "clues": self.clues,
+            "solution_verification": self.solution_verification
+        }
+
 
 class PuzzleEncounter(Encounter):
-    def __init__(self, data:EncounterData = None):
+    def __init__(self, data: EncounterData = None):
         super().__init__(data)
         self.puzzle_stages = []
-        self.partial_success_enabled= False
+        self.partial_success_enabled = False
         self.partial_success_clue = ''
         self.reduced_consequences = ''
 
-
-    __empty_encounter = {
-        "type": "",
-        "description": "",
-        "difficulty_level": "",
-        "details": {}  # attach a puzzle structure or a skirmish structure or a hazard structure or a boss fight structure
-    }
-
-
+    def to_dict(self) -> dict:
+        encounter_dict = {
+            "puzzle_stages": [stage.to_dict() for stage in self.puzzle_stages],
+            "partial_success_enabled": self.partial_success_enabled,
+            "partial_success_clue": self.partial_success_clue,
+            "reduced_consequences": self.reduced_consequences
+        }
+        encounter_dict.update(super().to_dict())
+        return encounter_dict

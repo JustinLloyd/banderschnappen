@@ -1,3 +1,4 @@
+from climate_data import CLIMATE_TEMPERATE, CLIMATE_POLAR, CLIMATE_TROPICAL, CLIMATE_TUNDRA, CLIMATE_DESERT, CLIMATE_ALPINE
 from environment_types import EnvironmentData
 from climate_type import *
 from zone_data import *

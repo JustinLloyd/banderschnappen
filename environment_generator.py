@@ -6,7 +6,7 @@ from empty_structures import EmptyStructures
 from constants import *
 from environment_types import EnvironmentData, Environment
 from location_types import LocationData
-from world_types import WorldData
+#from world_types import WorldData
 from zone_types import ZoneData
 
 
@@ -44,16 +44,16 @@ class EnvironmentGenerator:
     #     # {"type": "jungle", "seasons": [SEASON_SPRING, SEASON_SUMMER, SEASON_AUTUMN, SEASON_WINTER], "climates": [CLIMATE_TROPICAL]},
     # ]
 
-    @classmethod
-    def generate_random_environment(cls):
-        environment_type = random.choice(WorldData.environments)
-        climate = random.choice(environment_type.climates)
-        season = random.choice(climate.possible_seasons)
-        environment = Environment(environment_type)
-        environment.climate = climate
-        environment.season = season
-
-        return environment
+    # @classmethod
+    # def generate_random_environment(cls):
+    #     environment_type = random.choice(WorldData.environments)
+    #     climate = random.choice(environment_type.possible_climates)
+    #     season = random.choice(climate.possible_seasons)
+    #     environment = Environment(environment_type)
+    #     environment.climate = climate
+    #     environment.season = season
+    #
+    #     return environment
 
     # @classmethod
     # def verify_locations(cls, locations, encounter_types, valid_adjectives):
@@ -243,8 +243,8 @@ class EnvironmentGenerator:
     # TODO generate how each hazard encounter will manifest itself
     # TODO generate how each exploration encounter will manifest itself
     @classmethod
-    def verify_world(cls):
-        WorldData.validate()
+    # def verify_world(cls):
+    #     WorldData.validate()
 
 
-EnvironmentGenerator.validate_data()
+# EnvironmentGenerator.validate_data()

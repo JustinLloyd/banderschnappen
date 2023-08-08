@@ -1,83 +1,51 @@
-import copy
-
+import random
+from statistics import mean
 from season_data import *
 from season_types import Season
 
 
 class ClimateData:
-    def __init__(self, name:str=None, description:str=None, seasons:[SeasonData]=None, minimum_temperature:int=-40, maximum_temperature:int=130):
+    def __init__(self, name: str = None, description: str = None, seasons: [SeasonData] = None, minimum_temperature: int = -40, maximum_temperature: int = 130):
         self.name = name
         self.seasons = seasons
         self.minimum_temperature = minimum_temperature
         self.maximum_temperature = maximum_temperature
         self.description = description
 
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "description": self.description,
+            "seasons": [season.to_dict() for season in self.seasons],
+            "minimum_temperature": self.minimum_temperature,
+            "maximum_temperature": self.maximum_temperature
+        }
+
 
 class Climate:
-    def __init__(self, name:str=None, description:str=None, season:Season=None, weather:str=None, minimum_temperature:int=-40, maximum_temperature:int=130):
-        self.name = name
-        self.season = copy.deepcopy(season)
-        self.minimum_temperature = minimum_temperature
-        self.maximum_temperature = maximum_temperature
-        self.description = description
-        self.weather = weather
+    def __init__(self, data: ClimateData = None):
+        self.name = data.name
+        self.possible_seasons = [Season(season) for season in data.seasons]
+        self.season = None
+        self.minimum_temperature = data.minimum_temperature
+        self.maximum_temperature = data.maximum_temperature
+        self.description = data.description
+        self.weather = ''
+        self.temperature = mean([data.minimum_temperature, data.maximum_temperature])
 
+    def generate_random_climate(self):
+        self.season = Season(random.choice(self.possible_seasons))
+        self.weather = '$describe the weather based on the season, temperature, and other factors'
+        self.temperature = random.randint(max(self.minimum_temperature, self.season.minimum_temperature), min(self.maximum_temperature, self.season.maximum_temperature))
 
-CLIMATE_TEMPERATE_KEY = "temperate"
-CLIMATE_TEMPERATE = ClimateData(
-    name=CLIMATE_TEMPERATE_KEY,
-    description="Temperate climates are found in the middle latitudes, between the polar and tropical regions. These climates have four seasons, with warm summers and cold winters.",
-    seasons=[SEASON_SPRING, SEASON_AUTUMN, SEASON_WINTER, SEASON_WINTER],
-    minimum_temperature=-5,
-    maximum_temperature=80)
-
-CLIMATE_DESERT_KEY = "desert"
-CLIMATE_DESERT = ClimateData(
-    name=CLIMATE_DESERT_KEY,
-    description="Desert climates are found in the polar regions. These climates have two seasons, with hot summers and warm winters.",
-    seasons=[SEASON_SUMMER,SEASON_WINTER],
-    minimum_temperature=-10,
-    maximum_temperature=130)
-
-CLIMATE_TROPICAL_KEY = "tropical"
-CLIMATE_TROPICAL = ClimateData(
-    name=CLIMATE_TROPICAL_KEY,
-    description="Tropical climates are found in the tropical regions. These climates have two seasons, with hot summers and wet winters.",
-    seasons=[SEASON_SUMMER,SEASON_WINTER],
-    minimum_temperature=60,
-    maximum_temperature=110)
-
-CLIMATE_ALPINE_KEY = "alpine"
-CLIMATE_ALPINE = ClimateData(
-    name=CLIMATE_ALPINE_KEY,
-    description="Alpine climates are found in the polar regions. These climates have two seasons, with warm summers and cold winters.",
-    seasons=[SEASON_SPRING, SEASON_AUTUMN, SEASON_WINTER, SEASON_WINTER],
-    minimum_temperature=-10,
-    maximum_temperature=70)
-
-CLIMATE_POLAR_KEY = "polar"
-CLIMATE_POLAR = ClimateData(
-    name=CLIMATE_POLAR_KEY,
-    description="Polar climates are found in the polar regions. These climates have two seasons, with cold summers and even colder winters.",
-    seasons=[SEASON_SUMMER,SEASON_WINTER],
-    minimum_temperature=-40,
-    maximum_temperature=30)
-
-CLIMATE_TUNDRA_KEY = 'tundra'
-CLIMATE_TUNDRA = ClimateData(
-    name=CLIMATE_TUNDRA_KEY,
-    description="Tundra climates are found in the polar regions. These climates have two seasons, with cool summers and cold winters.",
-    seasons=[SEASON_SUMMER,SEASON_WINTER],
-    minimum_temperature=-30,
-    maximum_temperature=50)
-
-CLIMATE_SUBTERRANEAN_KEY = "subterranean"
-CLIMATE_SUBTERRANEAN = ClimateData(
-    name=CLIMATE_SUBTERRANEAN_KEY,
-    description="Subterranean climates are found in the polar regions. There are generally no seasons, with a constant temperature.",
-    seasons=[SEASON_CONSTANT],
-    minimum_temperature=30,
-    maximum_temperature=70)
-
-CLIMATES_DB = [CLIMATE_TEMPERATE, CLIMATE_DESERT, CLIMATE_TROPICAL, CLIMATE_ALPINE, CLIMATE_POLAR, CLIMATE_SUBTERRANEAN, CLIMATE_TUNDRA]
-
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "description": self.description,
+            "season": self.season.to_dict(),
+            "weather": self.weather,
+            "minimum_temperature": self.minimum_temperature,
+            "maximum_temperature": self.maximum_temperature,
+            "temperature": self.temperature,
+            "possible_seasons": [season.to_dict() for season in self.possible_seasons]
+        }

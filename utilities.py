@@ -53,25 +53,25 @@ def make_prompt(data, prefix=None):
     return output
 
 
-def save_state_data(state, data):
+def save_state_data(state_name, data_obj):
     try:
         ensure_state_data_directory_exists()
-        with open(f'state-data/{state}.json', 'w') as file:
-            json.dump(data, file)
+        with open(f'state-data/{state_name}.json', 'w') as file:
+            json.dump(data_obj, file)
     except Exception as e:
-        raise SaveDataError(f"Error saving state data for '{state}': {str(e)}")
+        raise SaveDataError(f"Error saving state data for '{state_name}': {str(e)}")
 
 
-def load_state_data(state):
+def load_state_data(state_name):
     try:
         ensure_state_data_directory_exists()
-        if not os.path.exists(f'state-data/{state}.json'):
+        if not os.path.exists(f'state-data/{state_name}.json'):
             return {}
 
-        with open(f'state-data/{state}.json') as file:
+        with open(f'state-data/{state_name}.json') as file:
             return json.load(file)
     except Exception as e:
-        raise LoadDataError(f"Error loading state data for '{state}': {str(e)}")
+        raise LoadDataError(f"Error loading state data for '{state_name}': {str(e)}")
 
 
 def ensure_state_data_directory_exists():

@@ -1,19 +1,19 @@
 import copy
 import random
+from typing import Optional, List
 
 from adjective_data import ADJECTIVES_DB
-from connection_type import Connection
-from encounter_type import EncounterData
+from encounter_type import EncounterData, Encounter
 
 
 class LocationData:
-    def __init__(self, descriptor=None, nouns=None, adjectives=None, encounters=None):
+    def __init__(self, descriptor: Optional[str] = None, nouns: Optional[List[str]] = None, adjectives: Optional[List[str]] = None, encounters: Optional[List[str]] = None):
         self.descriptor = descriptor
         self.nouns = nouns
         self.adjectives = adjectives
         self.encounters = encounters
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.descriptor} {self.nouns} {self.adjectives} {self.encounters}"
 
     def validate(self):
@@ -64,10 +64,30 @@ class LocationData:
             if len(self.nouns) != len(set(self.nouns)):
                 raise ValueError("The nouns list cannot contain duplicate values in {self.descriptor}.")
 
+    def to_dict(self):
+        return {
+            "descriptor": self.descriptor,
+            "nouns": self.nouns if self.nouns else [],
+            "adjectives": self.adjectives if self.adjectives else [],
+            "encounters": [encounter.to_dict() for encounter in self.encounters]
+        }
 
 class Location:
     def __init__(self, data: LocationData = None):
-        self.descriptor = data.descriptor
+        self.name: str = ''
+        self.possible_nouns: [str] = []
+        self.possible_adjectives: [str] = []
+        self.possible_encounters: [str] = []
+        self.encounter = None
+        self.nouns: [str] = []
+        self.adjectives = []
+        self.depth = 0
+        self.zone = None
+        self.connections: ["connection_types.Connection"] = []
+        if not data:
+            return
+
+        self.name = data.descriptor
         self.possible_nouns = copy.deepcopy(data.nouns)
         self.possible_adjectives = copy.deepcopy(data.adjectives)
         self.possible_encounters = copy.deepcopy(data.encounters)
@@ -76,9 +96,9 @@ class Location:
         self.adjectives = []
         self.depth = 0
         self.zone = None
-        self.connections: [Connection] = []
+        self.connections: ["connection_types.Connection"] = []
 
-    def add_connection(self, location):
+    def add_connection(self, location: "connection_types.Connection"):
         self.connections.append(location)
 
     def select_random_nouns(self):
@@ -90,12 +110,25 @@ class Location:
         self.adjectives = random.sample(self.possible_adjectives, random.randint(0, min(2, len(self.possible_adjectives))))
 
     def select_random_encounter(self):
-        self.encounter = random.choice(self.possible_encounters)
+        encounter_data = random.choice(self.possible_encounters)
+        self.encounter = Encounter(encounter_data)
 
     def randomize_location(self):
         self.select_random_nouns()
         self.select_random_adjectives()
         self.select_random_encounter()
 
+    def constructed_name(self) -> str:
+        return f"{self.zone.name}_{self.name}_{self.depth}"
+
     def __str__(self):
-        return f"{self.descriptor} (depth {self.depth}) in {self.zone.name}"
+        return f"{self.name} (depth {self.depth}) in {self.zone.name}"
+
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "nouns": self.nouns,
+            "adjectives": self.adjectives if self.adjectives else [],
+            "encounter": self.encounter.name,
+            "connections": [connection.name for connection in self.connections]
+        }

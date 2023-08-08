@@ -3,6 +3,7 @@ import json
 from chat_gpt import ChatGPT
 from empty_structures import EmptyStructures
 from game_rules import GameRules
+from npc_types import NPC
 from party_type import Party
 
 from scenario import Scenario
@@ -11,7 +12,7 @@ from utilities import load_state_data, save_state_data
 
 class NPCs:
     _instance = None
-    _nonplayer_characters = []
+    _nonplayer_characters: [NPC] = []
 
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
@@ -19,7 +20,7 @@ class NPCs:
         return cls._instance
 
     def __init__(self):
-        self.load_state()
+        pass
 
     @classmethod
     def load_state(cls):

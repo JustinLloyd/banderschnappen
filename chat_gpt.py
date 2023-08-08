@@ -14,6 +14,11 @@ class ChatGPT:
     GPT_3_5_TURBO_16K = "gpt-3.5-turbo-16k"
     MAX_TOKENS_4K = 4096
     MAX_TOKENS_16K = 16384
+    COLD=0.0
+    COOL=0.2
+    WARM=0.4
+    HOT=0.7
+    FIRES_OF_HELL=0.99
 
     def __init__(self, response_name=None, preferred_model=GPT_3_5_TURBO_16K, temperature=0.2, top_p=0.95):
         print(os.getenv("OPENAI_API_KEY"))
@@ -74,19 +79,68 @@ class ChatGPT:
                 self.response = json.load(file)
         return self.response
 
-    def invoke_gpt_4k(self, temperature=None, top_p=None, max_tokens=MAX_TOKENS_4K):
+    def invoke_cold_4k(self, top_p=None, max_tokens=MAX_TOKENS_4K):
         if max_tokens > ChatGPT.MAX_TOKENS_4K:
             raise ValueError(f"Maximum number of tokens is {ChatGPT.MAX_TOKENS_4K}")
 
-        return self._invoke_gpt(preferred_model=ChatGPT.GPT_3_5_TURBO, temperature=temperature, top_p=top_p, max_tokens=max_tokens)
+        return self._invoke_gpt(preferred_model=ChatGPT.GPT_3_5_TURBO, temperature=ChatGPT.COLD, top_p=top_p, max_tokens=max_tokens)
+
+    def invoke_cool_4k(self,  top_p=None, max_tokens=MAX_TOKENS_4K):
+        if max_tokens > ChatGPT.MAX_TOKENS_4K:
+            raise ValueError(f"Maximum number of tokens is {ChatGPT.MAX_TOKENS_4K}")
+
+        return self._invoke_gpt(preferred_model=ChatGPT.GPT_3_5_TURBO, temperature=ChatGPT.COOL, top_p=top_p, max_tokens=max_tokens)
+
+    def invoke_warm_4k(self,  top_p=None, max_tokens=MAX_TOKENS_4K):
+        if max_tokens > ChatGPT.MAX_TOKENS_4K:
+            raise ValueError(f"Maximum number of tokens is {ChatGPT.MAX_TOKENS_4K}")
+
+        return self._invoke_gpt(preferred_model=ChatGPT.GPT_3_5_TURBO, temperature=ChatGPT.WARM, top_p=top_p, max_tokens=max_tokens)
+
+    def invoke_hot_4k(self,  top_p=None, max_tokens=MAX_TOKENS_4K):
+        if max_tokens > ChatGPT.MAX_TOKENS_4K:
+            raise ValueError(f"Maximum number of tokens is {ChatGPT.MAX_TOKENS_4K}")
+
+        return self._invoke_gpt(preferred_model=ChatGPT.GPT_3_5_TURBO, temperature=ChatGPT.HOT, top_p=top_p, max_tokens=max_tokens)
+
+    def invoke_wife_showering_4k(self,  top_p=None, max_tokens=MAX_TOKENS_4K):
+        if max_tokens > ChatGPT.MAX_TOKENS_4K:
+            raise ValueError(f"Maximum number of tokens is {ChatGPT.MAX_TOKENS_4K}")
+
+        return self._invoke_gpt(preferred_model=ChatGPT.GPT_3_5_TURBO, temperature=ChatGPT.FIRES_OF_HELL, top_p=top_p, max_tokens=max_tokens)
+
+    def invoke_cold_16k(self, top_p=None, max_tokens=MAX_TOKENS_16K):
+        if max_tokens > ChatGPT.MAX_TOKENS_16K:
+            raise ValueError(f"Maximum number of tokens is {ChatGPT.MAX_TOKENS_16K}")
+
+        return self.invoke_16k(temperature=ChatGPT.COLD, top_p=top_p, max_tokens=max_tokens)
+
+    def invoke_cool_16k(self, top_p=None, max_tokens=MAX_TOKENS_16K):
+        if max_tokens > ChatGPT.MAX_TOKENS_16K:
+            raise ValueError(f"Maximum number of tokens is {ChatGPT.MAX_TOKENS_16K}")
+
+        return self.invoke_16k(temperature=ChatGPT.COOL, top_p=top_p, max_tokens=max_tokens)
 
     def invoke_warm_16k(self, top_p=None, max_tokens=MAX_TOKENS_16K):
         if max_tokens > ChatGPT.MAX_TOKENS_16K:
             raise ValueError(f"Maximum number of tokens is {ChatGPT.MAX_TOKENS_16K}")
 
-        return self.invoke_gpt_16k(temperature=0.4, top_p=top_p, max_tokens=max_tokens)
+        return self.invoke_16k(temperature=ChatGPT.WARM, top_p=top_p, max_tokens=max_tokens)
 
-    def invoke_gpt_16k(self, temperature=None, top_p=None, max_tokens=MAX_TOKENS_16K):
+    def invoke_hot_16k(self, top_p=None, max_tokens=MAX_TOKENS_16K):
+        if max_tokens > ChatGPT.MAX_TOKENS_16K:
+            raise ValueError(f"Maximum number of tokens is {ChatGPT.MAX_TOKENS_16K}")
+
+        return self.invoke_16k(temperature=ChatGPT.HOT, top_p=top_p, max_tokens=max_tokens)
+
+    def invoke_wife_showering_16k(self, top_p=None, max_tokens=MAX_TOKENS_16K):
+        if max_tokens > ChatGPT.MAX_TOKENS_16K:
+            raise ValueError(f"Maximum number of tokens is {ChatGPT.MAX_TOKENS_16K}")
+
+        return self.invoke_16k(temperature=ChatGPT.FIRES_OF_HELL, top_p=top_p, max_tokens=max_tokens)
+
+
+    def invoke_16k(self, temperature=None, top_p=None, max_tokens=MAX_TOKENS_16K):
         if max_tokens > ChatGPT.MAX_TOKENS_16K:
             raise ValueError(f"Maximum number of tokens is {ChatGPT.MAX_TOKENS_16K}")
 

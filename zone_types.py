@@ -51,6 +51,14 @@ class ZoneData:
         if self.minimum_locations_to_use > len(self.locations):
             raise ValueError(f"The minimum locations to use value of {self.minimum_locations_to_use} is greater than the number of locations in the locations list for zone f{self.name}.")
 
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "adjectives": self.adjectives if self.adjectives else [],
+            "locations": [location.to_dict() for location in self.locations],
+            "minimum_locations_to_use": self.minimum_locations_to_use,
+            "maximum_locations_to_use": self.maximum_locations_to_use
+        }
 
 class Zone:
     def __init__(self, data=None):
@@ -69,7 +77,7 @@ class Zone:
 
     def select_random_adjectives(self):
         if self.possible_adjectives:
-            self.adjectives = random.sample(self.possible_adjectives, min(2, len(self.possible_adjectives)))
+            self.adjectives = random.sample(self.possible_adjectives, min(0, min(len(self.possible_adjectives), 2)))
 
     def select_random_locations(self):
         number_of_locations = random.randint(self.minimum_locations_to_use, self.maximum_locations_to_use)
@@ -77,8 +85,24 @@ class Zone:
         for location_data in selected_locations:
             location = Location(location_data)
             location.depth = random.randint(1, len(selected_locations))
+            location.zone = self
             location.randomize_location()
             self.locations.append(location)
 
     def __str__(self):
         return f"{self.name} (depth {self.depth})"
+
+    def constructed_name(self):
+        return f"{self.name}_{self.depth}"
+
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "adjectives": self.adjectives if self.adjectives else [],
+            "possible_adjectives": self.possible_adjectives if self.possible_adjectives else [],
+            "possible_locations": [location.to_dict() for location in self.possible_locations],
+            "locations": [location.to_dict() for location in self.locations],
+            "minimum_locations_to_use": self.minimum_locations_to_use,
+            "maximum_locations_to_use": self.maximum_locations_to_use,
+            "depth": self.depth
+        }

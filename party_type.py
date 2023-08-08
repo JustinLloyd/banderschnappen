@@ -7,9 +7,7 @@ from utilities import load_state_data, save_state_data
 
 
 class Party:
-    def __init__(self):
-        self.players: [Player] = []
-        self.load_state()
+    players: [Player] = []
 
     def load_state(self):
         self.players = load_state_data('players')

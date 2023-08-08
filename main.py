@@ -1,11 +1,11 @@
 import copy
 import json
+from typing import Optional
 
 from actions import Actions
 from chat_gpt import ChatGPT
 
 from game_rules import GameRules
-from game_state import GameState
 from gem_generator import GemGenerator
 from historical_summary import HistoricalSummary
 from npcs import NPCs
@@ -13,9 +13,10 @@ from npcs import NPCs
 from scenario import Scenario
 from treasure_vessel_generator import TreasureVesselGenerator
 from utilities import make_prompt
-from world_types import GameWorld
+from world_types import GameWorld, WorldData
 
-world = None
+world:Optional[GameWorld] = None
+
 
 def perform_player_action(performer, message):
     Actions.perform_action(performer, message)
@@ -48,7 +49,9 @@ def generate_scenario():
 
 def test_function():
     global world
-    world = GameWorld.generate_random_world()
+    world.save_state()
+    # global world
+    # world = GameWorld.generate_random_world()
     # Scenario.generate_scenario()
     # dm = ChatGPT()
     #
@@ -63,6 +66,8 @@ Total treasure carried by the NPCs is not to exceed 100gp.
 
 Once the center of trade and commerce, the market square now lies in disarray. Abandoned vendor stalls still bear fragments of colorful tapestries and broken goods, hinting at a time of prosperity. A beautiful stone fountain, now dry, stands at the center of the square. The fountain depicts a robed figure, believed to be the city's ancient seer, holding an orb.
 """
+
+
 # #    dm.add_system_message(GameRules.get_encounter_treasure_prompt())
 #     print(dm.get_message())
 #     dm.estimate_token_message()
@@ -74,6 +79,8 @@ Once the center of trade and commerce, the market square now lies in disarray. A
 
 
 if __name__ == '__main__':
+    WorldData.validate()
+    world = GameWorld.generate_random_world()
     test_function()
 
     # messages.append({"role": "system", "content": message})

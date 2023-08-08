@@ -18,6 +18,14 @@ class SeasonData:
         if self.maximum_temperature is None or not isinstance(self.maximum_temperature, int):
             raise ValueError("Each season must have a maximum temperature, it must be an integer, and it cannot be empty.")
 
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "description": self.description,
+            "minimum_temperature": self.minimum_temperature,
+            "maximum_temperature": self.maximum_temperature
+        }
+
 
 class Season:
     def __init__(self, data: SeasonData = None):
@@ -25,3 +33,11 @@ class Season:
         self.description = data.description
         self.minimum_temperature = data.minimum_temperature
         self.maximum_temperature = data.maximum_temperature
+
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "description": self.description,
+            "minimum_temperature": self.minimum_temperature,
+            "maximum_temperature": self.maximum_temperature
+        }

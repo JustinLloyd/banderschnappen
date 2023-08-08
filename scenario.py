@@ -14,7 +14,7 @@ from treasure_generator import TreasureGenerator
 from treasure_trap_generator import TreasureTrapGenerator
 from treasure_vessel_generator import TreasureVesselGenerator
 from utilities import load_state_data, save_state_data, prune_structure, make_prompt, merge_structures, make_quoted_prompt, make_delimited_prompt
-from environment_generator import EnvironmentGenerator
+# from environment_generator import EnvironmentGenerator
 
 
 class Scenario:
@@ -26,8 +26,6 @@ class Scenario:
             cls._instance = super(Scenario, cls).__new__(cls, *args, **kwargs)
         return cls._instance
 
-    def __init__(self):
-        Scenario.load_state()
 
     @classmethod
     def load_state(cls):
@@ -35,7 +33,7 @@ class Scenario:
 
     @classmethod
     def save_state(cls):
-        save_state_data("scenario", cls._scenario)
+        save_state_data("scenario", cls)
 
     @classmethod
     def get_skirmish_encounters(cls):
@@ -367,7 +365,7 @@ class Scenario:
         for location in cls.__get_locations("puzzle"):
             dm = ChatGPT(response_name=f"generate-puzzle-{location['id']}")
             prompt = GameRules.get_puzzle_generation_prompt()
-            prompt = prompt.replace("{party-composition}", Players.get_party_composition_as_string())
+            prompt = prompt.replace("{party-composition}", Party.get_party_composition_as_string())
             number_of_stages = random.randint(1, 3)
             prompt = prompt.replace("{number-of-stages}", str(number_of_stages))
             puzzle = location['encounter']
